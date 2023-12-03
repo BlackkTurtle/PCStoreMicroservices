@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "JWf8gr83Ftpg0Bye5VS8tc6yb3xdK2+OczvQIe7m/hI=",
+  "Source": "PCStoreService.API",
+  "BasePath": "_content/PCStoreService.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
