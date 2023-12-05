@@ -15,6 +15,7 @@ namespace UserManager.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private string secureKey = "odneivkdivrenekjwjfdw8232jene";
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
         public UserController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
@@ -52,9 +53,9 @@ namespace UserManager.API.Controllers
                 userExists = new ApplicationUser
                 {
                     FirstName = request.FirstName,
-                    LastName= request.LastName,
-                    Father=request.Father,
-                    PhoneNumber=request.Phone,
+                    LastName = request.LastName,
+                    Father = request.Father,
+                    PhoneNumber = request.Phone,
                     Email = request.Email,
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     UserName = request.Email,
@@ -97,44 +98,29 @@ namespace UserManager.API.Controllers
             {
                 var user = await _userManager.FindByEmailAsync(request.Email);
                 if (user is null) return new LoginResponse { Message = "Invalid email/password", Success = false };
-                var passresult=await _userManager.CheckPasswordAsync(user, request.Password);
+                var passresult = await _userManager.CheckPasswordAsync(user, request.Password);
                 if (passresult == false)
                 {
                     return new LoginResponse { Message = "Invalid email/password", Success = false };
                 }
 
                 //all is well if ew reach here
-                var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-            };
-                var roles = await _userManager.GetRolesAsync(user);
-                var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x));
-                claims.AddRange(roleClaims);
+                var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey));
+                var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
+                var header = new JwtHeader(credentials);
+                var payload = new JwtPayload(user.UserName, null, null, null, DateTime.Now.AddMinutes(15));
+                var token = new JwtSecurityToken(header, payload);
+                var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("odneivkdivrenekjwjfdw8232jene"));
-                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var expires = DateTime.Now.AddMinutes(30);
-
-                var token = new JwtSecurityToken(
-                    issuer: "https://localhost:7195",
-                    audience: "https://localhost:7195",
-                    claims: claims,
-                    expires: expires,
-                    signingCredentials: creds
-
-                    );
+                Response.Cookies.Append("jwt", jwt, new CookieOptions
+                {
+                    HttpOnly = true
+                });
 
                 return new LoginResponse
                 {
-                    AccessToken = new JwtSecurityTokenHandler().WriteToken(token),
                     Message = "Login Successful",
-                    Email = user?.Email,
                     Success = true,
-                    UserId = user?.Id.ToString()
                 };
             }
             catch (Exception ex)
@@ -142,8 +128,55 @@ namespace UserManager.API.Controllers
                 Console.WriteLine(ex.Message);
                 return new LoginResponse { Success = false, Message = ex.Message };
             }
+        }
+        private JwtSecurityToken VerifyToken(string jwt)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(secureKey);
+            tokenHandler.ValidateToken(jwt, new TokenValidationParameters
+            {
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = false,
+                ValidateAudience = false
+            }, out SecurityToken validatedToken);
+            return (JwtSecurityToken)validatedToken;
+        }
 
-
+        [HttpGet("user")]
+        public async Task<LoginResponse> GetUser()
+        {
+            try
+            {
+                var jwt = Request.Cookies["jwt"];
+                var token=VerifyToken(jwt);
+                string userName = token.Issuer;
+                var user=await _userManager.FindByNameAsync(userName);
+                return new LoginResponse
+                {
+                    Email=user.Email,
+                    UserName=userName,
+                    Message="success",
+                    Success = true
+                };
+            }
+            catch
+            {
+                return new LoginResponse
+                {
+                    Message = "unauthorized",
+                    Success = false
+                };
+            }
+        }
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("jwt");
+            return Ok(new
+            {
+                message="success"
+            });
         }
     }
 }

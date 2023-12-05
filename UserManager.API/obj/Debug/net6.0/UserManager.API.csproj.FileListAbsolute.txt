@@ -51,3 +51,4 @@ C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Micr
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\bin\Debug\net6.0\MongoDbGenericRepository.dll
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\obj\Debug\net6.0\UserManager.API.MvcApplicationPartsAssemblyInfo.cs
