@@ -83,3 +83,13 @@ C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Micr
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\obj\Debug\net6.0\PCStoreService.API.genruntimeconfig.cache
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\obj\Debug\net6.0\ref\PCStoreService.API.dll
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\Automatonymous.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\GreenPipes.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\MassTransit.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\MassTransit.AspNetCoreIntegration.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\MassTransit.ExtensionsDependencyInjectionIntegration.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\MassTransit.RabbitMqTransport.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\NewId.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API\bin\Debug\net6.0\RabbitMQ.Client.dll

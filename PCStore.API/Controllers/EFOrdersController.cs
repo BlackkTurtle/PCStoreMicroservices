@@ -1,5 +1,6 @@
 ﻿using DataAccess.Models;
 using DataAccess.Repositories.Contracts;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PCStoreService.API.DTOs;
@@ -12,11 +13,14 @@ namespace PCStoreService.API.Controllers
     {
         private readonly ILogger<EFOrdersController> _logger;
         private IEFUnitOfWork _EFuow;
+        private readonly IPublishEndpoint  publishEndpoint;
         public EFOrdersController(ILogger<EFOrdersController> logger,
-            IEFUnitOfWork ado_unitofwork)
+            IEFUnitOfWork ado_unitofwork,
+            IPublishEndpoint publishEndpoint)
         {
             _logger = logger;
             _EFuow = ado_unitofwork;
+            this.publishEndpoint = publishEndpoint;
         }
         //GET: api/events
         [Authorize]

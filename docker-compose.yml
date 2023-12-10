@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  usermanager.api:
+    image: ${DOCKER_REGISTRY-}usermanagerapi
+    build:
+      context: .
+      dockerfile: UserManager.API\Dockerfile
+
+  pcstoreservice.api:
+    image: ${DOCKER_REGISTRY-}pcstoreserviceapi
+    build:
+      context: .
+      dockerfile: PCStore.API\Dockerfile
+

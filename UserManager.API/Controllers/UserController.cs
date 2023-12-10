@@ -169,6 +169,38 @@ namespace UserManager.API.Controllers
                 };
             }
         }
+        [HttpGet("verifyuser")]
+        public async Task<LoginResponse> VerifyUser(string username)
+        {
+            try
+            {
+                var jwt = Request.Cookies["jwt"];
+                var token = VerifyToken(jwt);
+                string userName = token.Issuer;
+                var user = await _userManager.FindByNameAsync(userName);
+                if (username == userName)
+                {
+                    return new LoginResponse
+                    {
+                        Message = "success",
+                        Success = true
+                    };
+                }
+                else
+                {
+                    throw new Exception();
+                }
+                
+            }
+            catch
+            {
+                return new LoginResponse
+                {
+                    Message = "unauthorized",
+                    Success = false
+                };
+            }
+        }
         [HttpPost("logout")]
         public IActionResult Logout()
         {
