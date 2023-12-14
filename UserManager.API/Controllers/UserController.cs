@@ -210,5 +210,39 @@ namespace UserManager.API.Controllers
                 message="success"
             });
         }
+        [HttpDelete("deleteuser")]
+        public async Task<IActionResult> DeleteUser()
+        {
+            try
+            {
+                var jwt = Request.Cookies["jwt"];
+                var token = VerifyToken(jwt);
+                string userName = token.Issuer;
+                var user = await _userManager.FindByNameAsync(userName);
+                var result = await _userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                {
+                    Response.Cookies.Delete("jwt");
+                    return Ok(new LoginResponse
+                    {
+                        Message = "success",
+                        Success = true
+                    });
+                }
+                else
+                {
+                    throw new Exception();
+                }
+
+            }
+            catch
+            {
+                return Unauthorized(new LoginResponse
+                {
+                    Message = "unauthorized",
+                    Success = false
+                });
+            }
+        }
     }
 }

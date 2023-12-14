@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MassTransit;
 using PCStoreService.API.Settings;
 using MassTransit.Definition;
+using PCStore.API.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,24 +21,33 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddMassTransit(x => 
+/*builder.Services.AddMassTransit(x => 
 {
     x.UsingRabbitMq((context, configurator) =>
     {
         var rabbitMQSettings=builder.Configuration.GetSection(nameof(RabbitMQSettings)).Get<RabbitMQSettings>();
         configurator.Host(rabbitMQSettings.Host);
-        configurator.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter("PCStoreService", false));
+        configurator.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter("PCStoreService.API", false));
     });
 });
-builder.Services.AddMassTransitHostedService();
+builder.Services.AddMassTransitHostedService();*/
 
 builder.Services.AddAuthentication();
 
 
 builder.Services.AddDbContext<PCStoreDbContext>(options =>
 {
-    string? connectionString = builder.Configuration.GetConnectionString("MSSQLConnection");
-    options.UseSqlServer(connectionString, b => b.MigrationsAssembly("PCStoreService.API"));
+    var dbhost = Environment.GetEnvironmentVariable("DB_HOST");
+    var dbname = Environment.GetEnvironmentVariable("DB_NAME");
+    var dbpass = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
+
+
+    string connectionString = $"Data Source={dbhost};User ID=sa;Password={dbpass};Initial Catalog={dbname};Encrypt=True;Trust Server Certificate=True;";
+    options.UseSqlServer(connectionString, b => 
+    {
+        b.MigrationsAssembly("PCStoreService.API");
+        b.EnableRetryOnFailure();
+    });
 });
 
 builder.Services.AddScoped<IEFTypesRepository, EFTypesRepository>();
@@ -67,5 +77,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+DbSeeding.Seed(app);
 
 app.Run();

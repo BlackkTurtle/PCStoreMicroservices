@@ -14,12 +14,15 @@ BsonSerializer.RegisterSerializer(new GuidSerializer(MongoDB.Bson.BsonType.Strin
 BsonSerializer.RegisterSerializer(new DateTimeSerializer(MongoDB.Bson.BsonType.String));
 BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(MongoDB.Bson.BsonType.String));
 
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbname = Environment.GetEnvironmentVariable("DB_NAME");
+
 var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
 {
     MongoDbSettings = new MongoDbSettings
     {
-        ConnectionString = "mongodb://localhost:27017",
-        DatabaseName = "PcStoreUserManager"
+        ConnectionString = $"mongodb://{dbHost}:27017",
+        DatabaseName = dbname
     },
     IdentityOptionsAction = options =>
     {

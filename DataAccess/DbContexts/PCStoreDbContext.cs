@@ -5,12 +5,11 @@ namespace DataAccess.DbContexts
 {
     public partial class PCStoreDbContext:DbContext
     {
-        protected PCStoreDbContext()
-        {
-        }
+
         public PCStoreDbContext(DbContextOptions<PCStoreDbContext> options)
            : base(options)
         {
+            Database.EnsureCreated();
         }
         public virtual DbSet<Brand> Brands { get; set; }
 

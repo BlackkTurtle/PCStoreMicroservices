@@ -1,15 +1,57 @@
 version: '3.4'
 
+networks:
+  pcstore:
+
 services:
+  sqlserverdb:
+    container_name: sqlserverdb
+    image: ${DOCKER_REGISTRY-}mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+      - 8003:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=password@12345#
+    networks:
+      - pcstore
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - 18005:27017
+    networks:
+      - pcstore
+
   usermanager.api:
+    container_name: user-manager-api
     image: ${DOCKER_REGISTRY-}usermanagerapi
     build:
       context: .
-      dockerfile: UserManager.API\Dockerfile
+      dockerfile: UserManager.API/Dockerfile
+    ports: 
+      - 8001:80
+    networks:
+      - pcstore
+    environment:
+      - DB_HOST=mongodb
+      - DB_NAME=PCStoreUserManager
 
-  pcstoreservice.api:
-    image: ${DOCKER_REGISTRY-}pcstoreserviceapi
+  pcstore.api:
+    container_name: pc-store-api
+    image: ${DOCKER_REGISTRY-}pcstoreapi
     build:
       context: .
-      dockerfile: PCStore.API\Dockerfile
+      dockerfile: PCStore.API/Dockerfile
+    ports: 
+      - 8002:433
+    depends_on:
+      - sqlserverdb
+    environment:
+      - DB_HOST=sqlserverdb
+      - DB_NAME=PCStoreMicroservices
+      - DB_SA_PASSWORD=password@12345#
+    networks:
+      - pcstore
+
 
