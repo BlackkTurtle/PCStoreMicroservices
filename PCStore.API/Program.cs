@@ -11,9 +11,9 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MassTransit;
-using PCStoreService.API.Settings;
 using MassTransit.Definition;
 using PCStore.API.Seeding;
+using PCStore.API.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,19 +21,26 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-/*builder.Services.AddMassTransit(x => 
+builder.Services.AddMassTransit(x =>
 {
-    x.UsingRabbitMq((context, configurator) =>
+    x.AddConsumer<UserConsumer>();
+    x.UsingRabbitMq((ctx, cfg) =>
     {
-        var rabbitMQSettings=builder.Configuration.GetSection(nameof(RabbitMQSettings)).Get<RabbitMQSettings>();
-        configurator.Host(rabbitMQSettings.Host);
-        configurator.ConfigureEndpoints(context, new KebabCaseEndpointNameFormatter("PCStoreService.API", false));
+        var uri = new Uri("rabbitmq://rabbitmq/");
+        cfg.Host(uri, host =>
+        {
+            host.Username("user");
+            host.Password("mypass");
+        });
+        cfg.ReceiveEndpoint("UserPublisher", c =>
+        {
+            c.ConfigureConsumer<UserConsumer>(ctx);
+        });
     });
 });
-builder.Services.AddMassTransitHostedService();*/
+builder.Services.AddMassTransitHostedService();
 
 builder.Services.AddAuthentication();
-
 
 builder.Services.AddDbContext<PCStoreDbContext>(options =>
 {
@@ -59,10 +66,7 @@ builder.Services.AddScoped<IEFProductsRepository, EFProductsRepository>();
 builder.Services.AddScoped<IEFStatusesRepository, EFStatusesRepository>();
 builder.Services.AddScoped<IEFUnitOfWork, EFUnitOfWork>();
 
-
-
-
-
+builder.Services.AddSingleton<IUserState,UserState>();
 
 var app = builder.Build();
 

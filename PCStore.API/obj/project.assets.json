@@ -3946,7 +3946,9 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "DataAccess >= 1.0.0",
+      "MassTransit >= 7.3.1",
       "MassTransit.AspNetCore >= 7.3.1",
+      "MassTransit.Extensions.DependencyInjection >= 7.3.1",
       "MassTransit.RabbitMQ >= 7.3.1",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.24",
       "Microsoft.EntityFrameworkCore >= 7.0.13",
@@ -4001,7 +4003,15 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "MassTransit": {
+            "target": "Package",
+            "version": "[7.3.1, )"
+          },
           "MassTransit.AspNetCore": {
+            "target": "Package",
+            "version": "[7.3.1, )"
+          },
+          "MassTransit.Extensions.DependencyInjection": {
             "target": "Package",
             "version": "[7.3.1, )"
           },

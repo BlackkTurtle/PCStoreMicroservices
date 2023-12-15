@@ -29,8 +29,6 @@ services:
     build:
       context: .
       dockerfile: UserManager.API/Dockerfile
-    ports: 
-      - 8001:80
     networks:
       - pcstore
     environment:
@@ -43,8 +41,6 @@ services:
     build:
       context: .
       dockerfile: PCStore.API/Dockerfile
-    ports: 
-      - 8002:433
     depends_on:
       - sqlserverdb
     environment:
@@ -54,4 +50,26 @@ services:
     networks:
       - pcstore
 
+  rabbitmq:
+    container_name: rabbitmq
+    image: ${DOCKER_REGISTRY-}rabbitmq:3.8-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    hostname: rabbitmq
+    networks:
+      - pcstore
 
+  ocelot.api:
+    container_name: ocelot.api
+    image: ${DOCKER_REGISTRY-}ocelotapi
+    build:
+      context: .
+      dockerfile: Ocelot.API/Dockerfile
+    networks:
+      - pcstore
+    ports:
+      - 8001:80

@@ -2,6 +2,7 @@
 using System.Net;
 using System.Security.Claims;
 using System.Text;
+using MassTransit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,12 @@ namespace UserManager.API.Controllers
         private string secureKey = "odneivkdivrenekjwjfdw8232jene";
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
-        public UserController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
+        private readonly IPublishEndpoint publishEndpoint;
+        public UserController(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, IPublishEndpoint publishEndpoint)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            this.publishEndpoint = publishEndpoint;
         }
         [HttpPost]
         [Route("roles/add")]
@@ -87,9 +90,12 @@ namespace UserManager.API.Controllers
         {
             var result = await LoginAsync(request);
 
+            if (result.Success)
+            {
+                await publishEndpoint.Publish<UserPublisher>(new UserPublisher() { IsRegistered = true,UserName=result.UserName });
+            }
+
             return result.Success ? Ok(result) : BadRequest(result.Message);
-
-
         }
 
         private async Task<LoginResponse> LoginAsync(LoginRequest request)
@@ -121,6 +127,8 @@ namespace UserManager.API.Controllers
                 {
                     Message = "Login Successful",
                     Success = true,
+                    UserName = user.UserName,
+                    Email = user.Email
                 };
             }
             catch (Exception ex)
@@ -202,9 +210,10 @@ namespace UserManager.API.Controllers
             }
         }
         [HttpPost("logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
             Response.Cookies.Delete("jwt");
+            await publishEndpoint.Publish<UserPublisher>(new UserPublisher() { IsRegistered = false});
             return Ok(new
             {
                 message="success"
@@ -223,6 +232,7 @@ namespace UserManager.API.Controllers
                 if (result.Succeeded)
                 {
                     Response.Cookies.Delete("jwt");
+                    await publishEndpoint.Publish<UserPublisher>(new UserPublisher() { IsRegistered = false });
                     return Ok(new LoginResponse
                     {
                         Message = "success",

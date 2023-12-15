@@ -1,9 +1,13 @@
-﻿using DataAccess.Models;
+﻿using System.Net.Http;
+using DataAccess.Models;
 using DataAccess.Repositories.Contracts;
+using MassTransit.RabbitMqTransport.Integration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using PCStore.API.Consumers;
 using PCStoreService.API.DTOs;
 
 namespace PCStoreService.API.Controllers
@@ -14,11 +18,14 @@ namespace PCStoreService.API.Controllers
     {
         private readonly ILogger<EFCommentController> _logger;
         private IEFUnitOfWork _EFuow;
+        private readonly IUserState userState;
         public EFCommentController(ILogger<EFCommentController> logger,
-            IEFUnitOfWork unitOfWork)
+            IEFUnitOfWork unitOfWork,
+            IUserState userState)
         {
             _logger = logger;
             _EFuow = unitOfWork;
+            this.userState = userState;
         }
 
         [HttpGet("{article}")]
@@ -54,6 +61,10 @@ namespace PCStoreService.API.Controllers
                 {
                     _logger.LogInformation($"Ми отримали пустий json зі сторони клієнта");
                     return BadRequest("Обєкт comment є null");
+                }
+                if (userState.Username != fullcomment.UserId)
+                {
+                    return Unauthorized();
                 }
                 var comment = new Comment()
                 {

@@ -1,5 +1,50 @@
 name: dockercompose12103485682816125630
 services:
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    networks:
+      pcstore: null
+    ports:
+      - mode: ingress
+        target: 27017
+        published: "18005"
+        protocol: tcp
+  ocelot.api:
+    build:
+      context: C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices
+      dockerfile: Ocelot.API/Dockerfile
+    container_name: ocelot.api
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: ocelotapi
+    networks:
+      pcstore: null
+    ports:
+      - mode: ingress
+        target: 80
+        protocol: tcp
+      - mode: ingress
+        target: 80
+        published: "8001"
+        protocol: tcp
+      - mode: ingress
+        target: 443
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\user\AppData\Roaming/Microsoft/UserSecrets
+        target: /root/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\user\AppData\Roaming/ASP.NET/Https
+        target: /root/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
   pcstore.api:
     build:
       context: C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices
@@ -23,10 +68,6 @@ services:
         target: 80
         protocol: tcp
       - mode: ingress
-        target: 433
-        published: "8002"
-        protocol: tcp
-      - mode: ingress
         target: 443
         protocol: tcp
     volumes:
@@ -42,8 +83,26 @@ services:
         read_only: true
         bind:
           create_host_path: true
+  rabbitmq:
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_PASS: mypass
+      RABBITMQ_DEFAULT_USER: user
+    hostname: rabbitmq
+    image: rabbitmq:3.8-management-alpine
+    networks:
+      pcstore: null
+    ports:
+      - mode: ingress
+        target: 5672
+        published: "5672"
+        protocol: tcp
+      - mode: ingress
+        target: 15672
+        published: "15672"
+        protocol: tcp
   sqlserverdb:
-    container_name: sqldb
+    container_name: sqlserverdb
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: password@12345#
@@ -63,16 +122,14 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: https://+:443;http://+:80
+      DB_HOST: mongodb
+      DB_NAME: PCStoreUserManager
     image: usermanagerapi
     networks:
       pcstore: null
     ports:
       - mode: ingress
         target: 80
-        protocol: tcp
-      - mode: ingress
-        target: 80
-        published: "8001"
         protocol: tcp
       - mode: ingress
         target: 443

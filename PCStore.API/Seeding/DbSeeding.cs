@@ -53,7 +53,7 @@ namespace PCStore.API.Seeding
                     {
                         Name="Dark project KD104A",
                         Picture="string",
-                        Type=9,
+                        Type=3,
                         Price=Convert.ToSingle(69.99),
                         BrandId=2,
                         Availability=true
@@ -61,7 +61,7 @@ namespace PCStore.API.Seeding
                     {
                         Name = "MSI B360M Gaming Plus",
                         Picture = "string",
-                        Type = 8,
+                        Type = 2,
                         Price = Convert.ToSingle(99.99),
                         BrandId = 1,
                         Availability = true
