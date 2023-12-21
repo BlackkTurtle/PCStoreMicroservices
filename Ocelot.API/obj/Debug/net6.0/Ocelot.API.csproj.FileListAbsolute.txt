@@ -35,3 +35,11 @@ C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Micr
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\obj\Debug\net6.0\Ocelot.API.pdb
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\obj\Debug\net6.0\Ocelot.API.genruntimeconfig.cache
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\obj\Debug\net6.0\ref\Ocelot.API.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\bin\Debug\net6.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\bin\Debug\net6.0\Pipelines.Sockets.Unofficial.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API\bin\Debug\net6.0\StackExchange.Redis.dll

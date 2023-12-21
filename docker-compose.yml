@@ -22,6 +22,19 @@ services:
       - 18005:27017
     networks:
       - pcstore
+  cache:
+    image: redis:6.2-alpine
+    container_name: redis-cache
+    restart: always
+    hostname: redis-cache
+    ports:
+      - '6379:6379'
+    environment:
+      - REDIS_PASSWORD=mypass
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+    networks:
+      - pcstore
 
   usermanager.api:
     container_name: user-manager-api
@@ -29,8 +42,11 @@ services:
     build:
       context: .
       dockerfile: UserManager.API/Dockerfile
+    ports:
+      - 8001:80
     networks:
       - pcstore
+    hostname: user-manager-api
     environment:
       - DB_HOST=mongodb
       - DB_NAME=PCStoreUserManager
@@ -47,6 +63,9 @@ services:
       - DB_HOST=sqlserverdb
       - DB_NAME=PCStoreMicroservices
       - DB_SA_PASSWORD=password@12345#
+    ports:
+      - 8002:80
+    hostname: pc-store-api
     networks:
       - pcstore
 
@@ -72,4 +91,4 @@ services:
     networks:
       - pcstore
     ports:
-      - 8001:80
+      - 8003:80

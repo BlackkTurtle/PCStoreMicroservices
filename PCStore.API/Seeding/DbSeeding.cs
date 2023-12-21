@@ -47,7 +47,7 @@ namespace PCStore.API.Seeding
                         StatusName = "Cancelled"
                     });
                 }
-                if (!context.Products.Any())
+                if (context.Products.Any())
                 {
                     context.Products.AddRange(new Product()
                     {

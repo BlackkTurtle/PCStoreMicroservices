@@ -65,3 +65,8 @@ C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Micr
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\obj\Debug\net6.0\UserManager.API.genruntimeconfig.cache
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\obj\Debug\net6.0\ref\UserManager.API.dll
 C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\bin\Debug\net6.0\System.Threading.Channels.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\bin\Debug\net6.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\bin\Debug\net6.0\Pipelines.Sockets.Unofficial.dll
+C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API\bin\Debug\net6.0\StackExchange.Redis.dll

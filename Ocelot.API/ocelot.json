@@ -7,11 +7,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFBrand"
+            "DownstreamPathTemplate": "/api/EFBrand",
+            "SwaggerKey": "pcstore"
         },
         //EFComment Controller
         {
@@ -20,11 +21,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFComment"
+            "DownstreamPathTemplate": "/api/EFComment",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/EFComment/{id}",
@@ -32,11 +34,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFComment/{id}"
+            "DownstreamPathTemplate": "/api/EFComment/{id}",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/EFComment/{article}",
@@ -44,11 +47,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFComment/{article}"
+            "DownstreamPathTemplate": "/api/EFComment/{article}",
+            "SwaggerKey": "pcstore"
         },
         //EFOrdersController
         {
@@ -57,11 +61,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFOrders"
+            "DownstreamPathTemplate": "/api/EFOrders",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/EFOrders/{Id}",
@@ -69,11 +74,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFOrders/{id}"
+            "DownstreamPathTemplate": "/api/EFOrders/{id}",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/EFOrders/id/{Id}",
@@ -81,11 +87,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFOrders/id/{id}"
+            "DownstreamPathTemplate": "/api/EFOrders/id/{id}",
+            "SwaggerKey": "pcstore"
         },
         //EFPartOrdersController
         {
@@ -94,11 +101,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFPartOrders/id/{id}"
+            "DownstreamPathTemplate": "/api/EFPartOrders/id/{id}",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/EFPartOrders/OrderID/{orderid}",
@@ -106,11 +114,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFPartOrders/OrderID/{orderid}"
+            "DownstreamPathTemplate": "/api/EFPartOrders/OrderID/{orderid}",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/EFPartOrders/{id}",
@@ -118,11 +127,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFPartOrders/{id}"
+            "DownstreamPathTemplate": "/api/EFPartOrders/{id}",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/EFPartOrders",
@@ -130,11 +140,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFPartOrders"
+            "DownstreamPathTemplate": "/api/EFPartOrders",
+            "SwaggerKey": "pcstore"
         },
         //EFProductsController
         {
@@ -143,11 +154,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFProducts"
+            "DownstreamPathTemplate": "/api/EFProducts",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/EFProducts/BrandID",
@@ -155,11 +167,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFProducts/BrandID"
+            "DownstreamPathTemplate": "/api/EFProducts/BrandID",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/EFProducts/TypeID",
@@ -167,11 +180,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFProducts/TypeID"
+            "DownstreamPathTemplate": "/api/EFProducts/TypeID",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/EFProducts/NameLike",
@@ -179,11 +193,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFProducts/NameLike"
+            "DownstreamPathTemplate": "/api/EFProducts/NameLike",
+            "SwaggerKey": "pcstore"
         },
         //EFStatusController
         {
@@ -192,11 +207,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFStatus"
+            "DownstreamPathTemplate": "/api/EFStatus",
+            "SwaggerKey": "pcstore"
         },
         //EFTypesController
         {
@@ -205,11 +221,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "pcstore.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8002
                 }
             ],
-            "DownstreamPathTemplate": "/api/EFTypes"
+            "DownstreamPathTemplate": "/api/EFTypes",
+            "SwaggerKey": "pcstore"
         },
         //UserController
         {
@@ -218,11 +235,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "usermanager.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8001
                 }
             ],
-            "DownstreamPathTemplate": "/api/User/roles/add"
+            "DownstreamPathTemplate": "/api/User/roles/add",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/User/register",
@@ -230,11 +248,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "usermanager.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8001
                 }
             ],
-            "DownstreamPathTemplate": "/api/User/register"
+            "DownstreamPathTemplate": "/api/User/register",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/User/login",
@@ -242,11 +261,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "usermanager.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8001
                 }
             ],
-            "DownstreamPathTemplate": "/api/User/login"
+            "DownstreamPathTemplate": "/api/User/login",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/User/logout",
@@ -254,11 +274,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "usermanager.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8001
                 }
             ],
-            "DownstreamPathTemplate": "/api/User/logout"
+            "DownstreamPathTemplate": "/api/User/logout",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/User/user",
@@ -266,11 +287,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "usermanager.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8001
                 }
             ],
-            "DownstreamPathTemplate": "/api/User/user"
+            "DownstreamPathTemplate": "/api/User/user",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/User/verifyuser",
@@ -278,11 +300,12 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "usermanager.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8001
                 }
             ],
-            "DownstreamPathTemplate": "/api/User/verifyuser"
+            "DownstreamPathTemplate": "/api/User/verifyuser",
+            "SwaggerKey": "pcstore"
         },
         {
             "UpstreamPathTemplate": "/api/User/deleteuser",
@@ -290,11 +313,24 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "usermanager.api",
-                    "Port": 80
+                    "Host": "localhost",
+                    "Port": 8001
                 }
             ],
-            "DownstreamPathTemplate": "/api/User/deleteuser"
+            "DownstreamPathTemplate": "/api/User/deleteuser",
+            "SwaggerKey": "pcstore"
+        }
+    ],
+    "SwaggerEndPoints": [
+        {
+            "Key": "Main",
+            "Config": [
+                {
+                    "Name": "Main Service",
+                    "Version": "v1",
+                    "Url": "http://localhost:5032/swagger/v1/swagger.json"
+                }
+            ]
         }
     ],
     "GlobalConfiguration": {

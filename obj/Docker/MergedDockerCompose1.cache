@@ -1,5 +1,21 @@
 name: dockercompose12103485682816125630
 services:
+  cache:
+    container_name: redis-cache
+    environment:
+      REDIS_DATABASES: "16"
+      REDIS_PASSWORD: mypass
+      REDIS_PORT: "6379"
+    hostname: redis-cache
+    image: redis:6.2-alpine
+    networks:
+      pcstore: null
+    ports:
+      - mode: ingress
+        target: 6379
+        published: "6379"
+        protocol: tcp
+    restart: always
   mongodb:
     container_name: mongodb
     image: mongo
@@ -43,7 +59,7 @@ services:
         protocol: tcp
       - mode: ingress
         target: 80
-        published: "8001"
+        published: "8003"
         protocol: tcp
       - mode: ingress
         target: 443
@@ -109,6 +125,7 @@ services:
       DB_SA_PASSWORD: password@12345#
       DOTNET_USE_POLLING_FILE_WATCHER: "1"
       NUGET_FALLBACK_PACKAGES: ""
+    hostname: pc-store-api
     image: pcstoreapi:dev
     labels:
       com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/net6.0/PCStore.API.dll"'
@@ -120,6 +137,10 @@ services:
     ports:
       - mode: ingress
         target: 80
+        protocol: tcp
+      - mode: ingress
+        target: 80
+        published: "8002"
         protocol: tcp
       - mode: ingress
         target: 443
@@ -211,6 +232,7 @@ services:
       DB_NAME: PCStoreUserManager
       DOTNET_USE_POLLING_FILE_WATCHER: "1"
       NUGET_FALLBACK_PACKAGES: ""
+    hostname: user-manager-api
     image: usermanagerapi:dev
     labels:
       com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/net6.0/UserManager.API.dll"'
@@ -222,6 +244,10 @@ services:
     ports:
       - mode: ingress
         target: 80
+        protocol: tcp
+      - mode: ingress
+        target: 80
+        published: "8001"
         protocol: tcp
       - mode: ingress
         target: 443

@@ -14,31 +14,13 @@ using MassTransit;
 using MassTransit.Definition;
 using PCStore.API.Seeding;
 using PCStore.API.Consumers;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddMassTransit(x =>
-{
-    x.AddConsumer<UserConsumer>();
-    x.UsingRabbitMq((ctx, cfg) =>
-    {
-        var uri = new Uri("rabbitmq://rabbitmq/");
-        cfg.Host(uri, host =>
-        {
-            host.Username("user");
-            host.Password("mypass");
-        });
-        cfg.ReceiveEndpoint("UserPublisher", c =>
-        {
-            c.ConfigureConsumer<UserConsumer>(ctx);
-        });
-    });
-});
-builder.Services.AddMassTransitHostedService();
 
 builder.Services.AddAuthentication();
 
@@ -56,6 +38,12 @@ builder.Services.AddDbContext<PCStoreDbContext>(options =>
         b.EnableRetryOnFailure();
     });
 });
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "redis-cache:6379";
+    options.InstanceName = "PCStore";
+
+});
 
 builder.Services.AddScoped<IEFTypesRepository, EFTypesRepository>();
 builder.Services.AddScoped<IEFBrandsRepository, EFBrandsRepository>();
@@ -67,6 +55,7 @@ builder.Services.AddScoped<IEFStatusesRepository, EFStatusesRepository>();
 builder.Services.AddScoped<IEFUnitOfWork, EFUnitOfWork>();
 
 builder.Services.AddSingleton<IUserState,UserState>();
+builder.Services.AddSingleton<UserConsumer>();
 
 var app = builder.Build();
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using MassTransit;
+using UserManager.API.Messages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,19 +43,7 @@ var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
 
 };
 
-builder.Services.AddMassTransit(x =>
-{
-    x.UsingRabbitMq((ctx, cfg) =>
-    {
-        var uri = new Uri("rabbitmq://rabbitmq/");
-        cfg.Host(uri, host =>
-        {
-            host.Username("user");
-            host.Password("mypass");
-        });
-    });
-});
-builder.Services.AddMassTransitHostedService();
+builder.Services.AddScoped<IMessageProducer,MessageProducer>();
 
 builder.Services.ConfigureMongoDbIdentity<ApplicationUser, ApplicationRole, Guid>(mongoDbIdentityConfig)
     .AddUserManager<UserManager<ApplicationUser>>()

@@ -3,7 +3,9 @@ using DataAccess.Repositories.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using PCStore.API.Extensions;
 
 namespace PCStoreService.API.Controllers
 {
@@ -25,9 +27,9 @@ namespace PCStoreService.API.Controllers
         {
             try
             {
-                var results = await _EFuow.eFProductsRepository.GetAllAsync();
+                var _products = await _EFuow.eFProductsRepository.GetAllAsync();
                 _logger.LogInformation($"Отримали всі Products з бази даних!");
-                return Ok(results);
+                return Ok(_products);
             }
             catch (Exception ex)
             {

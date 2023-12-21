@@ -19,13 +19,43 @@ namespace PCStoreService.API.Controllers
         private readonly ILogger<EFCommentController> _logger;
         private IEFUnitOfWork _EFuow;
         private readonly IUserState userState;
+        private readonly UserConsumer consumer;
         public EFCommentController(ILogger<EFCommentController> logger,
             IEFUnitOfWork unitOfWork,
-            IUserState userState)
+            IUserState userState,
+            UserConsumer consumer)
         {
             _logger = logger;
             _EFuow = unitOfWork;
             this.userState = userState;
+            this.consumer = consumer;
+        }
+        [HttpGet("consume")]
+        public async Task<ActionResult> GetConsumeMessageAsync()
+        {
+            try
+            {
+                await consumer.Consume();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Транзакція сфейлилась! Щось пішло не так у методі GetConsumeMessageAsync() - {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "вот так вот!");
+            }
+        }
+        [HttpGet("userstate")]
+        public async Task<ActionResult<UserState>> GetUserStateAsync()
+        {
+            try
+            {
+                return Ok(userState);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Транзакція сфейлилась! Щось пішло не так у методі GetConsumeMessageAsync() - {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, "вот так вот!");
+            }
         }
 
         [HttpGet("{article}")]
@@ -62,7 +92,7 @@ namespace PCStoreService.API.Controllers
                     _logger.LogInformation($"Ми отримали пустий json зі сторони клієнта");
                     return BadRequest("Обєкт comment є null");
                 }
-                if (userState.Username != fullcomment.UserId)
+                if (userState.Username == fullcomment.UserId)
                 {
                     return Unauthorized();
                 }
