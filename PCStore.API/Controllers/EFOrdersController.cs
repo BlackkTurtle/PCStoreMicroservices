@@ -1,4 +1,5 @@
-﻿using DataAccess.Models;
+﻿using System.Security.Claims;
+using DataAccess.Models;
 using DataAccess.Repositories.Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.Authorization;
@@ -23,10 +24,15 @@ namespace PCStoreService.API.Controllers
         //GET: api/events
         [Authorize]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrdersByUserAsync(string userid)
+        public async Task<ActionResult<IEnumerable<Order>>> GetAllOrdersByUserAsync()
         {
             try
             {
+                var userid=User.FindFirst(ClaimTypes.Name)?.Value;
+                if (userid == null)
+                {
+                    return BadRequest("User Claim is null!");
+                }
                 var results = await _EFuow.eFOrdersRepository.GetAllOrdersByUserIDAsync(userid);
                 _logger.LogInformation($"Отримали всі Orders з бази даних!");
                 return Ok(results);

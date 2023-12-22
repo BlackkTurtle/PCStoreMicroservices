@@ -44,19 +44,6 @@ namespace PCStoreService.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "вот так вот!");
             }
         }
-        [HttpGet("userstate")]
-        public async Task<ActionResult<UserState>> GetUserStateAsync()
-        {
-            try
-            {
-                return Ok(userState);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Транзакція сфейлилась! Щось пішло не так у методі GetConsumeMessageAsync() - {ex.Message}");
-                return StatusCode(StatusCodes.Status500InternalServerError, "вот так вот!");
-            }
-        }
 
         [HttpGet("{article}")]
         public async Task<ActionResult<IEnumerable<Comment>>> GetAllCommentsByProductArticleAsync(int article)

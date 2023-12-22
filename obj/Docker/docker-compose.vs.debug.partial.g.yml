@@ -11,19 +11,19 @@ services:
     environment:
       - DOTNET_USE_POLLING_FILE_WATCHER=1
       - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
-      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_ocelot.api$
+      - NUGET_FALLBACK_PACKAGES=
     volumes:
       - C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\Ocelot.API:/app
       - C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices:/src
       - C:\Users\user\vsdbg\vs2017u5:/remote_debugger:rw
-#$nuget_volume_mapping_ocelot.api$
+      - C:\Users\user\.nuget\packages\:/root/.nuget/packages:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
 
     entrypoint: tail -f /dev/null
     labels:
       com.microsoft.visualstudio.debuggee.program: "dotnet"
-      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_ocelot.api$ \"/app/bin/Debug/net6.0/Ocelot.API.dll\""
+      com.microsoft.visualstudio.debuggee.arguments: " --additionalProbingPath /root/.nuget/packages  \"/app/bin/Debug/net6.0/Ocelot.API.dll\""
       com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
       com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
     tty: true
@@ -37,19 +37,19 @@ services:
     environment:
       - DOTNET_USE_POLLING_FILE_WATCHER=1
       - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
-      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_pcstore.api$
+      - NUGET_FALLBACK_PACKAGES=
     volumes:
       - C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\PCStore.API:/app
       - C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices:/src
       - C:\Users\user\vsdbg\vs2017u5:/remote_debugger:rw
-#$nuget_volume_mapping_pcstore.api$
+      - C:\Users\user\.nuget\packages\:/root/.nuget/packages:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
 
     entrypoint: tail -f /dev/null
     labels:
       com.microsoft.visualstudio.debuggee.program: "dotnet"
-      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_pcstore.api$ \"/app/bin/Debug/net6.0/PCStore.API.dll\""
+      com.microsoft.visualstudio.debuggee.arguments: " --additionalProbingPath /root/.nuget/packages  \"/app/bin/Debug/net6.0/PCStore.API.dll\""
       com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
       com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
     tty: true
@@ -64,19 +64,19 @@ services:
     environment:
       - DOTNET_USE_POLLING_FILE_WATCHER=1
       - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
-      #- NUGET_FALLBACK_PACKAGES=$container_paths_to_fallback_packages_usermanager.api$
+      - NUGET_FALLBACK_PACKAGES=
     volumes:
       - C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices\UserManager.API:/app
       - C:\Users\user\OneDrive\Рабочий стол\ІФТКН\3 курс\РДП Microsoft.Net\PCStoreMicroservices:/src
       - C:\Users\user\vsdbg\vs2017u5:/remote_debugger:rw
-#$nuget_volume_mapping_usermanager.api$
+      - C:\Users\user\.nuget\packages\:/root/.nuget/packages:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
 
     entrypoint: tail -f /dev/null
     labels:
       com.microsoft.visualstudio.debuggee.program: "dotnet"
-      #com.microsoft.visualstudio.debuggee.arguments: " $debuggee_arguments_probing_paths_usermanager.api$ \"/app/bin/Debug/net6.0/UserManager.API.dll\""
+      com.microsoft.visualstudio.debuggee.arguments: " --additionalProbingPath /root/.nuget/packages  \"/app/bin/Debug/net6.0/UserManager.API.dll\""
       com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
       com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
     tty: true

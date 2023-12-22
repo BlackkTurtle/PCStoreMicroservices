@@ -3,6 +3,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -115,12 +116,15 @@ namespace UserManager.API.Controllers
                 {
                     return new LoginResponse { Message = "Invalid email/password", Success = false };
                 }
-
+                var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, user.UserName), 
+                     };
                 //all is well if ew reach here
                 var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secureKey));
                 var credentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature);
                 var header = new JwtHeader(credentials);
-                var payload = new JwtPayload(user.UserName, null, null, null, DateTime.Now.AddMinutes(15));
+                var payload = new JwtPayload(user.UserName, null, claims, null, DateTime.Now.AddMinutes(15));
                 var token = new JwtSecurityToken(header, payload);
                 var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
@@ -134,7 +138,8 @@ namespace UserManager.API.Controllers
                     Message = "Login Successful",
                     Success = true,
                     UserName = user.UserName,
-                    Email = user.Email
+                    Email = user.Email,
+                    token = jwt
                 };
             }
             catch (Exception ex)
@@ -143,28 +148,18 @@ namespace UserManager.API.Controllers
                 return new LoginResponse { Success = false, Message = ex.Message };
             }
         }
-        private JwtSecurityToken VerifyToken(string jwt)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(secureKey);
-            tokenHandler.ValidateToken(jwt, new TokenValidationParameters
-            {
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuerSigningKey = true,
-                ValidateIssuer = false,
-                ValidateAudience = false
-            }, out SecurityToken validatedToken);
-            return (JwtSecurityToken)validatedToken;
-        }
 
+        [Authorize]
         [HttpGet("user")]
         public async Task<LoginResponse> GetUser()
         {
             try
             {
-                var jwt = Request.Cookies["jwt"];
-                var token=VerifyToken(jwt);
-                string userName = token.Issuer;
+                string? userName = User.FindFirst(ClaimTypes.Name)?.Value;
+                if (string.IsNullOrEmpty(userName))
+                {
+                    throw new Exception();
+                }
                 var user=await _userManager.FindByNameAsync(userName);
                 return new LoginResponse
                 {
@@ -173,38 +168,6 @@ namespace UserManager.API.Controllers
                     Message="success",
                     Success = true
                 };
-            }
-            catch
-            {
-                return new LoginResponse
-                {
-                    Message = "unauthorized",
-                    Success = false
-                };
-            }
-        }
-        [HttpGet("verifyuser")]
-        public async Task<LoginResponse> VerifyUser(string username)
-        {
-            try
-            {
-                var jwt = Request.Cookies["jwt"];
-                var token = VerifyToken(jwt);
-                string userName = token.Issuer;
-                var user = await _userManager.FindByNameAsync(userName);
-                if (username == userName)
-                {
-                    return new LoginResponse
-                    {
-                        Message = "success",
-                        Success = true
-                    };
-                }
-                else
-                {
-                    throw new Exception();
-                }
-                
             }
             catch
             {
@@ -224,14 +187,17 @@ namespace UserManager.API.Controllers
                 message="success"
             });
         }
+        [Authorize]
         [HttpDelete("deleteuser")]
         public async Task<IActionResult> DeleteUser()
         {
             try
             {
-                var jwt = Request.Cookies["jwt"];
-                var token = VerifyToken(jwt);
-                string userName = token.Issuer;
+                string? userName = User.FindFirst(ClaimTypes.Name)?.Value;
+                if (string.IsNullOrEmpty(userName))
+                {
+                    throw new Exception();
+                }
                 var user = await _userManager.FindByNameAsync(userName);
                 var result = await _userManager.DeleteAsync(user);
                 if (result.Succeeded)

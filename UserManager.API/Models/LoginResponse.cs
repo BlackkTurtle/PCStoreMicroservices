@@ -1,4 +1,6 @@
-﻿namespace UserManager.API.Models
+﻿using Microsoft.Extensions.Primitives;
+
+namespace UserManager.API.Models
 {
     public class LoginResponse
     {
@@ -6,5 +8,6 @@
         public string Message { get; set; } = string.Empty;
         public string? UserName { get; set; }
         public string? Email { get; set; }
+        public string? token { get; set; } 
     }
 }
