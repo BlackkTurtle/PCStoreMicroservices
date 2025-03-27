@@ -1,0 +1,341 @@
+{
+    "Routes": [
+        //EFBrand Controller
+        {
+            "UpstreamPathTemplate": "/api/EFBrand",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFBrand",
+            "SwaggerKey": "pcstore"
+        },
+        //EFComment Controller
+        {
+            "UpstreamPathTemplate": "/api/EFComment",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFComment",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/EFComment/{id}",
+            "UpstreamHttpMethod": [ "Put", "Delete" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFComment/{id}",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/EFComment/{article}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFComment/{article}",
+            "SwaggerKey": "pcstore"
+        },
+        //EFOrdersController
+        {
+            "UpstreamPathTemplate": "/api/EFOrders",
+            "UpstreamHttpMethod": [ "Get", "Post" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFOrders",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/EFOrders/{Id}",
+            "UpstreamHttpMethod": [ "Put", "Delete" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFOrders/{id}",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/EFOrders/id/{Id}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFOrders/id/{id}",
+            "SwaggerKey": "pcstore"
+        },
+        //EFPartOrdersController
+        {
+            "UpstreamPathTemplate": "/api/EFPartOrders/id/{Id}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFPartOrders/id/{id}",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/EFPartOrders/OrderID/{orderid}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFPartOrders/OrderID/{orderid}",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/EFPartOrders/{id}",
+            "UpstreamHttpMethod": [ "Put", "Delete" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFPartOrders/{id}",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/EFPartOrders",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFPartOrders",
+            "SwaggerKey": "pcstore"
+        },
+        //EFProductsController
+        {
+            "UpstreamPathTemplate": "/api/EFProducts",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFProducts",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/EFProducts/BrandID",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFProducts/BrandID",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/EFProducts/TypeID",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFProducts/TypeID",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/EFProducts/NameLike",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFProducts/NameLike",
+            "SwaggerKey": "pcstore"
+        },
+        //EFStatusController
+        {
+            "UpstreamPathTemplate": "/api/EFStatus",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFStatus",
+            "SwaggerKey": "pcstore"
+        },
+        //EFTypesController
+        {
+            "UpstreamPathTemplate": "/api/EFTypes",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/EFTypes",
+            "SwaggerKey": "pcstore"
+        },
+        //UserController
+        {
+            "UpstreamPathTemplate": "/api/User/roles/add",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User/roles/add",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/User/register",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User/register",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/User/login",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User/login",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/User/logout",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User/logout",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/User/user",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User/user",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/User/verifyuser",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User/verifyuser",
+            "SwaggerKey": "pcstore"
+        },
+        {
+            "UpstreamPathTemplate": "/api/User/deleteuser",
+            "UpstreamHttpMethod": [ "Delete" ],
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 80
+                }
+            ],
+            "DownstreamPathTemplate": "/api/User/deleteuser",
+            "SwaggerKey": "pcstore"
+        }
+    ],
+    "SwaggerEndPoints": [
+        {
+            "Key": "Main",
+            "Config": [
+                {
+                    "Name": "Main Service",
+                    "Version": "v1",
+                    "Url": "http://localhost:5032/swagger/v1/swagger.json"
+                }
+            ]
+        }
+    ],
+    "Aggregates": [
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "http://localhost:8003"
+    }
+}

@@ -1,0 +1,78 @@
+version: '3.4'
+
+networks:
+  pcstore:
+
+services:
+
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    ports:
+      - 18005:27017
+    networks:
+      - pcstore
+  cache:
+    image: redis:6.2-alpine
+    container_name: rediscache
+    restart: always
+    hostname: rediscache
+    ports:
+      - '6379:6379'
+    environment:
+      - REDIS_PASSWORD=mypass
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+    networks:
+      - pcstore
+
+  usermanager.api:
+    container_name: user-manager-api
+    image: ${DOCKER_REGISTRY-}usermanagerapi
+    build:
+      context: .
+      dockerfile: UserManager.API/Dockerfile
+    ports:
+      - 8001:80
+    networks:
+      - pcstore
+    hostname: user-manager-api
+    environment:
+      - DB_HOST=mongodb
+      - DB_NAME=PCStoreUserManager
+
+  pcstore.api:
+    container_name: pc-store-api
+    image: ${DOCKER_REGISTRY-}pcstoreapi
+    build:
+      context: .
+      dockerfile: PCStore.API/Dockerfile
+    ports:
+      - 8002:80
+    hostname: pc-store-api
+    networks:
+      - pcstore
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: ${DOCKER_REGISTRY-}rabbitmq:3.8-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    hostname: rabbitmq
+    networks:
+      - pcstore
+
+  ocelot.api:
+    container_name: ocelot.api
+    image: ${DOCKER_REGISTRY-}ocelotapi
+    build:
+      context: .
+      dockerfile: Ocelot.API/Dockerfile
+    networks:
+      - pcstore
+    ports:
+      - 8003:80
