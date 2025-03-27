@@ -31,10 +31,6 @@ namespace PCStore.DAL.Configurations
                 .HasForeignKey(x => x.NakladnaId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(x => x.NakladnaType)
-                .WithMany(x => x.Nakladnis)
-                .HasForeignKey(x => x.NakladnaTypeId);
-
             builder.HasOne(x => x.Contragent)
                .WithMany(x => x.Nakladnis)
                .HasForeignKey(x => x.ContragentId);

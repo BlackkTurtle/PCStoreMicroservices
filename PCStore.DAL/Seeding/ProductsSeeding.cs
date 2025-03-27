@@ -13,8 +13,6 @@ namespace PCStore.DAL.Seeeding
         public static List<Category> Categories { get; set; } = new List<Category>();
         public static List<Product> Products { get; set; } = new List<Product>();
         public static List<Photos> Photoss { get; set; } = new List<Photos>();
-        public static List<NakladnaType> NakladnaTypes { get; set; }= new List<NakladnaType>();
-        public static List<Status> Statuses { get; set; }=new List<Status>();
 
         public static void SeedingInit()
         {
@@ -196,26 +194,6 @@ namespace PCStore.DAL.Seeeding
                     });
                     a++;
                 }
-            }
-
-            String[] nakladnaTypes = new String[] { "Pributkova","Vidatkova" };
-            for (int i = 1; i <= nakladnaTypes.Length; i++)
-            {
-                NakladnaTypes.Add(new NakladnaType()
-                {
-                    Id = i,
-                    Name = categoryNames[i - 1]
-                });
-            }
-
-            String[] statusNames = new String[] { "Delivered", "Cancelled","Delivering","Review" };
-            for (int i = 1; i <= statusNames.Length; i++)
-            {
-                Statuses.Add(new Status()
-                {
-                    Id = i,
-                    Name = statusNames[i - 1]
-                });
             }
         }
     }

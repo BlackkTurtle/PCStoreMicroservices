@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PCStore.Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,14 +17,13 @@ namespace PCStore.Data.Models
         public int DeliverAddressId { get; set; }
         public int PaymentTypeId { get; set; }
         public int NakladnaId { get; set; }
-        public int StatusId { get; set; }
+        public OrderStatus OrderStatus { get; set; }
         public string PhoneNumber { get; set; } = null!;
         public DateTime CreatedDate { get; set; }
         public string? Description { get; set; }
         public DeliverAddress DeliverAddress { get; set; } = null!;
         public Nakladni Nakladna { get; set; } = null!;
         public PaymentType PaymentType { get; set; } = null!;
-        public Status Status { get; set; } = null!;
 
     }
 }

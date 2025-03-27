@@ -70,7 +70,6 @@ builder.Services.AddScoped<IDeliverAddressRepository, DeliverAddressRepository>(
 builder.Services.AddScoped<IDeliverOptionRepository, DeliverOptionRepository>();
 builder.Services.AddScoped<IInventarizationRepository, InventarizationRepository>();
 builder.Services.AddScoped<IManipulationRepository, ManipulationRepository>();
-builder.Services.AddScoped<INakladnaTypeRepository, NakladnaTypeRepository>();
 builder.Services.AddScoped<INakladniProductsRepository, NakladniProductsRepository>();
 builder.Services.AddScoped<INakladniRepository, NakladniRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
@@ -83,7 +82,6 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductRestorageRepository, ProductRestorageRepository>();
 builder.Services.AddScoped<IProductStoragesRepository, ProductStoragesRepository>();
 builder.Services.AddScoped<IRestorageRepository, RestorageRepository>();
-builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 builder.Services.AddScoped<IStorageRepository, StorageRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

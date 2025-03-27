@@ -18,7 +18,6 @@ public interface IUnitOfWork
     IDeliverOptionRepository DeliverOptionRepository { get; }
     IInventarizationRepository InventarizationRepository { get; }
     IManipulationRepository ManipulationRepository { get; }
-    INakladnaTypeRepository NakladnaTypeRepository { get; }
     INakladniRepository NakladniRepository { get; }
     INakladniProductsRepository NakladniProductsRepository { get; }
     IOrderRepository OrderRepository { get; }
@@ -31,7 +30,6 @@ public interface IUnitOfWork
     IProductRestorageRepository ProductRestorageRepository { get; }
     IProductStoragesRepository ProductStoragesRepository { get; }
     IRestorageRepository RestorageRepository { get; }
-    IStatusRepository StatusRepository { get; }
     IStorageRepository StorageRepository { get; }
     Task SaveChangesAsync();
 }

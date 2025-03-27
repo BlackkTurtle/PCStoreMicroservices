@@ -25,7 +25,6 @@ public class AppDbContext : DbContext
     public DbSet<DeliverOption> DeliverOptions { get; set; }
     public DbSet<Inventarizations> Inventarizations { get; set; }
     public DbSet<Manipulation> Manipulations { get; set; }
-    public DbSet<NakladnaType> NakladnaTypes { get; set; }
     public DbSet<Nakladni> Nakladnis { get; set; }
     public DbSet<NakladniProducts> NakladniProducts { get; set; }
     public DbSet<Order> Orders { get; set; }
@@ -38,7 +37,6 @@ public class AppDbContext : DbContext
     public DbSet<ProductRestorage> ProductRestorages { get; set; }
     public DbSet<ProductStorages> ProductStorages { get; set; }
     public DbSet<Restorages> Restorages { get; set; }
-    public DbSet<Status> Statuses { get; set; }
     public DbSet<Storage> Storages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,8 +54,6 @@ public class AppDbContext : DbContext
             this.Categories.AddRange(ProductsSeeding.Categories);
             this.Products.AddRange(ProductsSeeding.Products);
             this.Photos.AddRange(ProductsSeeding.Photoss);
-            this.NakladnaTypes.AddRange(ProductsSeeding.NakladnaTypes);
-            this.Statuses.AddRange(ProductsSeeding.Statuses);
 
             this.SaveChanges();
         }

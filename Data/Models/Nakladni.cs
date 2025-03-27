@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PCStore.Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,9 +12,8 @@ namespace PCStore.Data.Models
         public int Id { get; set; }
         public DateTime CreationDate { get; set; }
         public int ContragentId { get; set; }
-        public int NakladnaTypeId { get; set; }
         public double Discount { get; set; }
-        public NakladnaType NakladnaType { get; set; } = null!;
+        public NakladnaType NakladnaType { get; set; }
         public Contragent Contragent { get; set; } = null!;
         public ICollection<Payment> Payments { get; set; } = null!;
         public ICollection<NakladniProducts> NakladniProducts { get; set; } = null!;

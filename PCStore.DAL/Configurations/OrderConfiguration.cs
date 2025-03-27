@@ -41,10 +41,6 @@ namespace PCStore.DAL.Configurations
                 .WithMany(x => x.Orders)
                 .HasForeignKey(x => x.DeliverAddressId);
 
-            builder.HasOne(x => x.Status)
-                .WithMany(x => x.Orders)
-                .HasForeignKey(x => x.StatusId);
-
             builder.HasOne(x => x.PaymentType)
                .WithMany(x => x.Orders)
                .HasForeignKey(x => x.PaymentTypeId);

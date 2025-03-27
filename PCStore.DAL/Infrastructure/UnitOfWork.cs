@@ -21,7 +21,6 @@ public class UnitOfWork : IUnitOfWork
     public IDeliverOptionRepository DeliverOptionRepository { get; }
     public IInventarizationRepository InventarizationRepository { get; }
     public IManipulationRepository ManipulationRepository { get; }
-    public INakladnaTypeRepository NakladnaTypeRepository { get; }
     public INakladniRepository NakladniRepository { get; }
     public INakladniProductsRepository NakladniProductsRepository { get; }
     public IOrderRepository OrderRepository { get; }
@@ -34,7 +33,6 @@ public class UnitOfWork : IUnitOfWork
     public IProductRestorageRepository ProductRestorageRepository { get; }
     public IProductStoragesRepository ProductStoragesRepository { get; }
     public IRestorageRepository RestorageRepository { get; }
-    public IStatusRepository StatusRepository { get; }
     public IStorageRepository StorageRepository { get; }
 
     public UnitOfWork
@@ -51,7 +49,6 @@ public class UnitOfWork : IUnitOfWork
         IDeliverOptionRepository deliverOptionRepository,
         IInventarizationRepository inventarizationRepository,
         IManipulationRepository manipulationRepository,
-        INakladnaTypeRepository nakladnaTypeRepository,
         INakladniRepository nakladniRepository,
         INakladniProductsRepository nakladniProductsRepository,
         IOrderRepository orderRepository,
@@ -65,8 +62,7 @@ public class UnitOfWork : IUnitOfWork
         IProductStoragesRepository productStoragesRepository,
         IRestorageRepository restorageRepository,
         IStorageRepository storageRepository,
-        ICommentRepository commentRepository,
-        IStatusRepository statusRepository)
+        ICommentRepository commentRepository)
     {
         _appDbContext = cinemaContext;
         BrandRepository = brandRepository;
@@ -81,7 +77,6 @@ public class UnitOfWork : IUnitOfWork
         DeliverOptionRepository = deliverOptionRepository;
         InventarizationRepository = inventarizationRepository;
         ManipulationRepository = manipulationRepository;
-        NakladnaTypeRepository = nakladnaTypeRepository;
         NakladniRepository = nakladniRepository;
         NakladniProductsRepository = nakladniProductsRepository;
         OrderRepository = orderRepository;
@@ -96,7 +91,6 @@ public class UnitOfWork : IUnitOfWork
         RestorageRepository = restorageRepository;
         StorageRepository = storageRepository;
         CommentRepository = commentRepository;
-        StatusRepository = statusRepository;
     }
 
     public async Task SaveChangesAsync()
