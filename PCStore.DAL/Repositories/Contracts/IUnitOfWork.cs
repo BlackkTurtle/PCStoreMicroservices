@@ -8,6 +8,7 @@ namespace PCStore.DAL.Repositories.Contracts
 {
     public interface IUnitOfWork
     {
+        IAdvertisementRepository AdvertisementRepository { get; }
         IBrandRepository BrandRepository { get; }
         ICategoryRepository CategoryRepository { get; }
         ICharacteristicsRepository CharacteristicsRepository { get; }

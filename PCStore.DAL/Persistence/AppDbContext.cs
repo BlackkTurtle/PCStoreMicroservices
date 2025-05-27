@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     {
     }
 
+    public DbSet<Advertisement> Advertisements { get; set; }
     public DbSet<Brand> Brands { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Characteristics> Characteristics { get; set; }

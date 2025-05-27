@@ -20,6 +20,7 @@ namespace PCStore.DAL.Repositories
             _dbContext = dbContext;
         }
 
+        private IAdvertisementRepository advertisementRepository;
         private IBrandRepository brandRepository;
         private ICategoryRepository categoryRepository;
         private ICharacteristicsRepository characteristicsRepository;
@@ -46,6 +47,19 @@ namespace PCStore.DAL.Repositories
         private IProductStoragesRepository productStoragesRepository;
         private IRestorageRepository restorageRepository;
         private IStorageRepository storageRepository;
+
+        public IAdvertisementRepository AdvertisementRepository
+        {
+            get
+            {
+                if (advertisementRepository is null)
+                {
+                    advertisementRepository = new AdvertisementRepository(_dbContext, redisCacheService);
+                }
+
+                return advertisementRepository;
+            }
+        }
 
         public IBrandRepository BrandRepository
         {
