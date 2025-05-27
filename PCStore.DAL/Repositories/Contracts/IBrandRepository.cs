@@ -1,5 +1,4 @@
-﻿using PCStore.DAL.Infrastructure.Interfaces;
-using PCStore.Data.Models;
+﻿using PCStore.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

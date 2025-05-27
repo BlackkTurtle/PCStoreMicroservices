@@ -1,4 +1,6 @@
-﻿using PCStore.DAL.Infrastructure;
+﻿
+using PCStore.DAL.Caching.RedisCache;
+using PCStore.DAL.Persistence;
 using PCStore.DAL.Repositories.Contracts;
 using PCStore.Data.Models;
 using System;
@@ -11,6 +13,9 @@ namespace PCStore.DAL.Repositories
 {
     public class ContragentDescriptionRepository:GenericRepository<ContragentDescription>, IContragentDescriptionRepository
     {
-        public ContragentDescriptionRepository(AppDbContext context) : base(context) { }
+        public ContragentDescriptionRepository(AppDbContext context, IRedisCacheService redisCacheService)
+            : base(context, redisCacheService)
+        {
+        }
     }
 }

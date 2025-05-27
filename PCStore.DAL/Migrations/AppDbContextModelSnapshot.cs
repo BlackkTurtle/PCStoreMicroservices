@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using PCStore.DAL;
+using PCStore.DAL.Persistence;
 
 #nullable disable
 
@@ -16,6 +16,21 @@ namespace PCStore.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.4");
+
+            modelBuilder.Entity("CategoryCharacteristics", b =>
+                {
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CharacteristicsId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("CategoriesId", "CharacteristicsId");
+
+                    b.HasIndex("CharacteristicsId");
+
+                    b.ToTable("CategoryCharacteristics");
+                });
 
             modelBuilder.Entity("PCStore.Data.Models.Brand", b =>
                 {
@@ -70,6 +85,9 @@ namespace PCStore.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CommentStatus")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
@@ -650,6 +668,21 @@ namespace PCStore.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Storages");
+                });
+
+            modelBuilder.Entity("CategoryCharacteristics", b =>
+                {
+                    b.HasOne("PCStore.Data.Models.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PCStore.Data.Models.Characteristics", null)
+                        .WithMany()
+                        .HasForeignKey("CharacteristicsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PCStore.Data.Models.Comment", b =>

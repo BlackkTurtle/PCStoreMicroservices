@@ -11,13 +11,11 @@ using MassTransit;
 using MassTransit.Definition;
 using Microsoft.Extensions.DependencyInjection;
 using System.Security.Claims;
-using PCStore.DAL;
-using PCStore.DAL.Infrastructure.Interfaces;
-using PCStore.DAL.Infrastructure;
 using PCStore.DAL.Repositories.Contracts;
 using PCStore.DAL.Repositories;
-using PCStore.BLL.Services.Contracts;
-using PCStore.BLL.Services;
+using PCStore.DAL.Persistence;
+using PCStore.DAL.Caching.RedisCache;
+using PCStore.API.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,38 +54,16 @@ builder.Services.AddAuthorization(option =>
     option.AddPolicy("OnlyUser", policyBuilder => policyBuilder.RequireClaim("UserRole", "User"));
 });
 
-//Adding Repositories
-builder.Services.AddScoped<IBrandRepository, BrandRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<ICharacteristicsRepository, CharacteristicsRepository>();
-builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-builder.Services.AddScoped<IContragentDescriptionRepository, ContragentDescriptionRepository>();
-builder.Services.AddScoped<IContragentRepository, ContragentRepository>();
-builder.Services.AddScoped<ICountManipulationRepository, CountManipulationRepository>();
-builder.Services.AddScoped<ICountOperationRepository, CountOperationRepository>();
-builder.Services.AddScoped<ICountRepository, CountRepository>();
-builder.Services.AddScoped<IDeliverAddressRepository, DeliverAddressRepository>();
-builder.Services.AddScoped<IDeliverOptionRepository, DeliverOptionRepository>();
-builder.Services.AddScoped<IInventarizationRepository, InventarizationRepository>();
-builder.Services.AddScoped<IManipulationRepository, ManipulationRepository>();
-builder.Services.AddScoped<INakladniProductsRepository, NakladniProductsRepository>();
-builder.Services.AddScoped<INakladniRepository, NakladniRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
-builder.Services.AddScoped<IPaymentTypeRepository, PaymentTypeRepository>();
-builder.Services.AddScoped<IPhotosRepository, PhotosRepository>();
-builder.Services.AddScoped<IProductCharacteristicsRepository, ProductCharacteristicsRepository>();
-builder.Services.AddScoped<IProductInventarizationRepository, ProductInventarizationRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<IProductRestorageRepository, ProductRestorageRepository>();
-builder.Services.AddScoped<IProductStoragesRepository, ProductStoragesRepository>();
-builder.Services.AddScoped<IRestorageRepository, RestorageRepository>();
-builder.Services.AddScoped<IStorageRepository, StorageRepository>();
-
+// Persistence
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+// MediatR
+var currentAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(currentAssemblies));
 
 //AddingServices
-builder.Services.AddScoped<IProductsService,ProductService>();
+builder.Services.AddScoped<IRedisCacheService,RedisCacheService>();
 
 //Adding Cache
 builder.Services.AddStackExchangeRedisCache(options =>
@@ -163,6 +139,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseRouting();
 app.UseCors("AllowOrigin");
+
+app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 
 app.UseStaticFiles();
 

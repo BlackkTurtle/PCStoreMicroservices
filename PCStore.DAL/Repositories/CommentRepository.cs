@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PCStore.DAL.Infrastructure;
+using PCStore.DAL.Caching.RedisCache;
+using PCStore.DAL.Persistence;
 using PCStore.DAL.Repositories.Contracts;
 using PCStore.Data.Models;
 using System;
@@ -13,9 +14,10 @@ namespace PCStore.DAL.Repositories
     public class CommentRepository:GenericRepository<Comment>, ICommentRepository
     {
         private readonly AppDbContext _context;
-        public CommentRepository(AppDbContext context) : base(context) 
+        public CommentRepository(AppDbContext context, IRedisCacheService redisCacheService)
+            : base(context, redisCacheService)
         {
-            this._context = context;
+            _context = context;
         }
 
         public async Task<double> GetRatingByProductId(int productId)

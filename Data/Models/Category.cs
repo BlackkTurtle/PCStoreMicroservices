@@ -12,5 +12,6 @@ namespace PCStore.Data.Models
         public string Name { get; set; }= null!;
         public string? Description { get; set; }
         public ICollection<Product> Products { get; set; } = null!;
+        public ICollection<Characteristics> Characteristics { get; set; }
     }
 }

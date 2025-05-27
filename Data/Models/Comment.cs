@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PCStore.Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,6 @@ namespace PCStore.Data.Models
         public Product Product { get; set; } = null!;
         public Comment? Parent { get; set; }
         public ICollection<Comment>? Children { get; set; }
+        public CommentStatus CommentStatus { get; set; }
     }
 }
