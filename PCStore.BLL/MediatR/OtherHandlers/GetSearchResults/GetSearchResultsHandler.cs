@@ -3,9 +3,13 @@ using MediatR;
 using PCStore.BLL.Services.Contracts;
 using PCStore.BLL.Specifications.AdvertisementSpecifications;
 using PCStore.BLL.Specifications.BrandSpecifications;
+using PCStore.BLL.Specifications.CategorySpecifications;
+using PCStore.BLL.Specifications.ProductSpecifications;
 using PCStore.DAL.Repositories.Contracts;
 using PCStore.Data.DTOs.BrandDTOs;
+using PCStore.Data.DTOs.CategoryDTOs;
 using PCStore.Data.DTOs.OtherDTOs;
+using PCStore.Data.DTOs.ProductDTOs;
 using PCStore.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -31,7 +35,9 @@ namespace PCStore.BLL.MediatR.OtherHandlers.GetSearchResults
         {
             var result = new SearchBarResultDTO()
             {
-                Brands = (List<GetBrandDTO>)await unitOfWork.BrandRepository.GetAllAsync(new BrandIdNameSpecification(request.nameLike))
+                Brands = (List<GetBrandDTO>)await unitOfWork.BrandRepository.GetAllAsync(new BrandIdNameSpecification(request.nameLike)),
+                Categorys = (List<CategoryIdNameDTO>)await unitOfWork.CategoryRepository.GetAllAsync(new CategoryIdNameSpecification(request.nameLike)),
+                Products = (List<ProductIdNameDTO>)await unitOfWork.ProductRepository.GetAllAsync(new ProductIdNameSpecification(request.nameLike))
             };
 
             return Result.Ok(result);
