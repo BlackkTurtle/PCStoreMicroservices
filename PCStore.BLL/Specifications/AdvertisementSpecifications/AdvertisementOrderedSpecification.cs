@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PCStore.BLL.Specifications.AdvertisementSpecifications
 {
-    public class AdvertisementOrderedSpecification : BaseSpecification<Advertisement>
+    public class AdvertisementOrderedSpecification : BaseSpecification<Advertisement, Advertisement>
     {
         public AdvertisementOrderedSpecification()
         {

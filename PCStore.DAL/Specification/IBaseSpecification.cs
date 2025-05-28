@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace PCStore.DAL.Specification
 {
-    public interface IBaseSpecification<T>
+    public interface IBaseSpecification<T, TResult>
     {
         Expression<Func<T, bool>> Predicate { get; }
         List<Expression<Func<T, object>>> Includes { get; }
@@ -16,6 +16,6 @@ namespace PCStore.DAL.Specification
         bool IsPagingEnabled { get; }
         string CacheKey { get; }
         int CacheMinutes { get; }
-        Expression<Func<T, object>> Selector { get; }
-    }
+        Expression<Func<T, TResult>> Selector { get; }
+        }
 }

@@ -3,28 +3,19 @@ using System.Linq;
 
 namespace PCStore.DAL.Specification.Evaluator
 {
-    public class SpecificationEvaluator<TEntity>
-        where TEntity : class
+    public static class SpecificationEvaluator<T, TResult>
+    where T : class
     {
-        public static IQueryable<TEntity> GetQuery(
-            IQueryable<TEntity> inputQuery,
-            IBaseSpecification<TEntity> specification)
+        public static IQueryable<TResult> GetQuery(IQueryable<T> inputQuery, IBaseSpecification<T, TResult> specification)
         {
             var query = inputQuery;
-
-            if (specification == null)
-            {
-                return query;
-            }
 
             if (specification.Predicate != null)
             {
                 query = query.Where(specification.Predicate);
             }
 
-            query = specification.Includes.Aggregate(
-                query,
-                (current, include) => current.Include(include));
+            query = specification.Includes.Aggregate(query, (current, include) => current.Include(include));
 
             if (specification.OrderBy != null)
             {
@@ -42,14 +33,15 @@ namespace PCStore.DAL.Specification.Evaluator
 
             if (specification.IsPagingEnabled)
             {
-                query = query.Skip(specification.Skip.Value)
-                            .Take(specification.Take.Value);
+                query = query.Skip(specification.Skip.Value).Take(specification.Take.Value);
             }
 
-            if (specification.Selector != null)
-                query = (IQueryable<TEntity>)query.Select(specification.Selector);
+            if(specification.Selector == null)
+            {
+                return (IQueryable<TResult>)query;
+            }
 
-            return query;
+            return query.Select(specification.Selector);
         }
     }
 }

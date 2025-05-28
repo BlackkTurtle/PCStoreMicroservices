@@ -81,11 +81,11 @@ namespace PCStore.DAL.Repositories
             return _dbContext.Database.ExecuteSqlRawAsync(query);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(IBaseSpecification<T> specification = null)
+        public async Task<IEnumerable<TResult>> GetAllAsync<TResult>(IBaseSpecification<T, TResult> specification)
         {
             if (specification != null && specification.CacheKey != string.Empty)
             {
-                var dataFromCache = await _redisCacheService.GetCachedDataAsync<IEnumerable<T>>(specification.CacheKey);
+                var dataFromCache = await _redisCacheService.GetCachedDataAsync<IEnumerable<TResult>>(specification.CacheKey);
                 if (dataFromCache != null)
                 {
                     return dataFromCache;
@@ -93,26 +93,28 @@ namespace PCStore.DAL.Repositories
 
                 var dataFromDb = ApplySpecificationForList(specification);
 
-                if (!dataFromDb.Any())
+                var dataList = await dataFromDb.ToListAsync();
+
+                if (!dataList.Any())
                 {
-                    return dataFromDb!;
+                    return dataList;
                 }
 
-                await _redisCacheService.SetCachedDataAsync(specification.CacheKey, dataFromDb, specification.CacheMinutes);
+                await _redisCacheService.SetCachedDataAsync(specification.CacheKey, dataList, specification.CacheMinutes);
 
-                return dataFromDb;
+                return dataList;
             }
             else
             {
-                return ApplySpecificationForList(specification);
+                return await ApplySpecificationForList(specification).ToListAsync();
             }
         }
 
-        public async Task<T> GetFirstOrDefaultAsync(IBaseSpecification<T> specification = null)
+        public async Task<TResult> GetFirstOrDefaultAsync<TResult>(IBaseSpecification<T, TResult> specification)
         {
             if (specification != null && specification.CacheKey != string.Empty)
             {
-                var dataFromCache = await _redisCacheService.GetCachedDataAsync<T>(specification.CacheKey);
+                var dataFromCache = await _redisCacheService.GetCachedDataAsync<TResult>(specification.CacheKey);
                 if (dataFromCache != null)
                 {
                     return dataFromCache;
@@ -122,7 +124,7 @@ namespace PCStore.DAL.Repositories
 
                 if (dataFromDb == null)
                 {
-                    return dataFromDb!;
+                    return default!;
                 }
 
                 await _redisCacheService.SetCachedDataAsync(specification.CacheKey, dataFromDb, specification.CacheMinutes);
@@ -135,9 +137,9 @@ namespace PCStore.DAL.Repositories
             }
         }
 
-        private IQueryable<T> ApplySpecificationForList(IBaseSpecification<T> specification)
+        private IQueryable<TResult> ApplySpecificationForList<TResult>(IBaseSpecification<T, TResult> specification)
         {
-            return SpecificationEvaluator<T>.GetQuery(_dbSet.AsQueryable(), specification);
+            return SpecificationEvaluator<T, TResult>.GetQuery(_dbSet.AsQueryable(), specification);
         }
     }
 }

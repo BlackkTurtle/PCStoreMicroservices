@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace PCStore.DAL.Specification
 {
-    public abstract class BaseSpecification<T> : IBaseSpecification<T>
+    public abstract class BaseSpecification<T, TResult> : IBaseSpecification<T, TResult>
     {
         public BaseSpecification()
         {
@@ -32,7 +32,7 @@ namespace PCStore.DAL.Specification
         public bool IsPagingEnabled { get; private set; } = false;
         public string CacheKey { get; private set; } = string.Empty;
         public int CacheMinutes { get; private set; } = 10;
-        public Expression<Func<T, object>> Selector { get; private set; }
+        public Expression<Func<T, TResult>> Selector { get; private set; }
 
         protected virtual void AddInclude(Expression<Func<T, object>> includeExpresion)
         {
@@ -71,7 +71,7 @@ namespace PCStore.DAL.Specification
             GroupBy = expression;
         }
 
-        protected virtual void ApplySelector(Expression<Func<T, object>> selector)
+        protected virtual void ApplySelector(Expression<Func<T, TResult>> selector)
         {
             Selector = selector;
         }

@@ -36,8 +36,8 @@ namespace PCStore.DAL.Repositories.Contracts
 
         public Task ExecuteSqlRaw(string query);
 
-        Task<IEnumerable<T>> GetAllAsync(IBaseSpecification<T> specification = null);
+        Task<IEnumerable<TResult>> GetAllAsync<TResult>(IBaseSpecification<T, TResult> specification = null);
 
-        Task<T> GetFirstOrDefaultAsync(IBaseSpecification<T> specification = null);
+        Task<TResult> GetFirstOrDefaultAsync<TResult>(IBaseSpecification<T, TResult> specification = null);
     }
 }
