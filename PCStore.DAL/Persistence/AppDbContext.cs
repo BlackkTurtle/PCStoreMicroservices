@@ -10,6 +10,7 @@ public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> contextOptions) : base(contextOptions)
     {
+        Database.EnsureCreated();
     }
 
     public DbSet<Advertisement> Advertisements { get; set; }
@@ -51,6 +52,7 @@ public class AppDbContext : DbContext
         {
             ProductsSeeding.SeedingInit();
 
+            Advertisements.AddRange(ProductsSeeding.Advertisements);
             Brands.AddRange(ProductsSeeding.Brands);
             Categories.AddRange(ProductsSeeding.Categories);
             Products.AddRange(ProductsSeeding.Products);

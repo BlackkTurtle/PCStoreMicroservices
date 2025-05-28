@@ -13,6 +13,7 @@ namespace PCStore.DAL.Persistence.Seeding
         public static List<Category> Categories { get; set; } = new List<Category>();
         public static List<Product> Products { get; set; } = new List<Product>();
         public static List<Photos> Photoss { get; set; } = new List<Photos>();
+        public static List<Advertisement> Advertisements { get; set; } = new List<Advertisement>();
 
         public static void SeedingInit()
         {
@@ -194,6 +195,23 @@ namespace PCStore.DAL.Persistence.Seeding
                     });
                     a++;
                 }
+            }
+
+            var addvertisementsLinks = new List<string>
+            {
+                "http://localhost:8002/AddvertisementPhotos/advertisement1.jpg",
+                "http://localhost:8002/AddvertisementPhotos/advertisement2.jpg",
+                "http://localhost:8002/AddvertisementPhotos/advertisement3.jpg"
+            };
+
+            for (int i = 0; i < addvertisementsLinks.Count; i++) 
+            {
+                Advertisements.Add(new Advertisement()
+                {
+                    Id = i+1,
+                    PhotoLink = addvertisementsLinks[i],
+                    Order = i
+                });
             }
         }
     }

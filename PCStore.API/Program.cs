@@ -16,9 +16,13 @@ using PCStore.DAL.Repositories;
 using PCStore.DAL.Persistence;
 using PCStore.DAL.Caching.RedisCache;
 using PCStore.API.Middleware;
+using PCStore.BLL.Services.Contracts;
+using PCStore.BLL.Services;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddLogging();
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(
@@ -57,6 +61,7 @@ builder.Services.AddAuthorization(option =>
 // Persistence
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddSingleton<Serilog.ILogger>(sp => Log.Logger);
 
 // MediatR
 var currentAssemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -64,6 +69,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(currentAss
 
 //AddingServices
 builder.Services.AddScoped<IRedisCacheService,RedisCacheService>();
+builder.Services.AddScoped<ILoggerService,LoggerService>();
 
 //Adding Cache
 builder.Services.AddStackExchangeRedisCache(options =>
