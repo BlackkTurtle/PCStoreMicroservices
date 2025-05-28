@@ -1,29 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using PCStore.API.Controllers.Base;
 using PCStore.BLL.MediatR.AdvertisementHandlers.GetOrderedAdvertisements;
+using PCStore.BLL.MediatR.ProductHandlers.GetLastNProductsWithImage;
+using PCStore.BLL.MediatR.ProductHandlers.GetMultipleProductsByIds;
 
 namespace PCStore.API.Controllers
 {
-    public class RelatedTermController : BaseApiController
+    public class ProductController : BaseApiController
     {
-        [HttpGet]
-        public async Task<IActionResult> GetAllOrderedAdvertisements()
+        [HttpGet("{n:int}")]
+        public async Task<IActionResult> GetLastNProductswithImage([FromRoute] int n)
         {
-            return HandleResult(await Mediator.Send(new GetOrderedAdvertisementsQuery()));
+            return HandleResult(await Mediator.Send(new GetLastNProductsWithImageQuery(n)));
         }
 
-        /*[HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById([FromRoute] int id)
+        [HttpGet("{intsstr}")]
+        public async Task<IActionResult> GetMultipleProductsByIds([FromRoute] string intsstr)
         {
-            return HandleResult(await Mediator.Send(new GetRelatedTermByIdQuery(id)));
+            var ints = intsstr.Split(',').Select(int.Parse).ToArray();
+            return HandleResult(await Mediator.Send(new GetMultipleProductsByIdsQuery(ints)));
         }
-
-        [HttpGet("{termid:int}")]
-        public async Task<IActionResult> GetByTermId([FromRoute] int termid)
-        {
-            return HandleResult(await Mediator.Send(new GetAllRelatedTermsByTermIdQuery(termid)));
-        }
-
+        /*
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] RelatedTermDto relatedTerm)
         {

@@ -12,6 +12,7 @@ namespace PCStore.BLL.Specifications.AdvertisementSpecifications
     {
         public AdvertisementOrderedSpecification()
         {
+            AddCaching("ordered-advertisements");
             ApplyOrderBy(x => x.Order);
         }
     }

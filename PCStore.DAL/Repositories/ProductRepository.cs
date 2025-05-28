@@ -22,7 +22,12 @@ namespace PCStore.DAL.Repositories
 
         public async Task<List<Product>> GetLastNProductsWith1Photo(int n)
         {
-            return await _context.Products.OrderByDescending(p => p.Id).Take(n).Include(x=>x.Photos.OrderBy(x=>x.Id).Take(1)).ToListAsync();
+            return await _context.Products
+                .OrderByDescending(p => p.Id)
+                .Take(n)
+                .Include(x=>x.Photos.OrderBy(x=>x.Id).Take(1))
+                .Include(x => x.Comments)
+                .ToListAsync();
         }
 
         public async Task<List<Product>> GetMultipleById(int[] ints)
@@ -30,6 +35,7 @@ namespace PCStore.DAL.Repositories
             return await _context.Products
                      .Where(p => ints.Contains(p.Id))
                      .Include(x => x.Photos.OrderBy(photo => photo.Id).Take(1))
+                     .Include(x => x.Comments)
                      .ToListAsync();
         }
     }
