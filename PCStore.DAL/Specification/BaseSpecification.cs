@@ -32,6 +32,7 @@ namespace PCStore.DAL.Specification
         public bool IsPagingEnabled { get; private set; } = false;
         public string CacheKey { get; private set; } = string.Empty;
         public int CacheMinutes { get; private set; } = 10;
+        public Expression<Func<T, object>> Selector { get; private set; }
 
         protected virtual void AddInclude(Expression<Func<T, object>> includeExpresion)
         {
@@ -68,6 +69,11 @@ namespace PCStore.DAL.Specification
         protected virtual void ApplyGroupBy(Expression<Func<T, object>> expression)
         {
             GroupBy = expression;
+        }
+
+        protected virtual void ApplySelector(Expression<Func<T, object>> selector)
+        {
+            Selector = selector;
         }
     }
 }

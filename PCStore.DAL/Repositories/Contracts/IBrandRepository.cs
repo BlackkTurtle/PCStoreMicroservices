@@ -1,4 +1,5 @@
-﻿using PCStore.Data.Models;
+﻿using PCStore.Data.DTOs.BrandDTOs;
+using PCStore.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

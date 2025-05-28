@@ -46,6 +46,9 @@ namespace PCStore.DAL.Specification.Evaluator
                             .Take(specification.Take.Value);
             }
 
+            if (specification.Selector != null)
+                query = (IQueryable<TEntity>)query.Select(specification.Selector);
+
             return query;
         }
     }

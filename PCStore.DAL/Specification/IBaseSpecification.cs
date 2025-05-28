@@ -16,5 +16,6 @@ namespace PCStore.DAL.Specification
         bool IsPagingEnabled { get; }
         string CacheKey { get; }
         int CacheMinutes { get; }
+        Expression<Func<T, object>> Selector { get; }
     }
 }
