@@ -16,7 +16,7 @@ namespace PCStore.Data.Models
         public int? ParentId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime DateModified { get; set; }
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
         public string Content { get; set; } = null!;
         public bool IsReview { get; set; }
         public Product Product { get; set; } = null!;

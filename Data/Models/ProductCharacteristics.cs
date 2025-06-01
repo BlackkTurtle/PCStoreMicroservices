@@ -10,9 +10,9 @@ namespace PCStore.Data.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public bool Linkable { get; set; }
         public int CharacteristicId { get; set; }
         public int ProductId { get; set; }
+        public int Order { get; set; }
         public Characteristics Characteristic { get; set; } = null!;
         public Product Product { get; set; } = null!;
     }

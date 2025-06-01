@@ -13,9 +13,12 @@ namespace PCStore.DAL.Persistence.Seeding
         public static List<Brand> Brands { get; set; } = new List<Brand>();
         public static List<Category> Categories { get; set; } = new List<Category>();
         public static List<Characteristics> Characteristics { get; set; } = new List<Characteristics>();
+        public static List<Comment> Comments { get; set; } = new List<Comment>();
         public static List<Product> Products { get; set; } = new List<Product>();
         public static List<ProductCharacteristics> ProductCharacteristics { get; set; } = new List<ProductCharacteristics>();
+        public static List<ProductStorages> ProductStorages { get; set; } = new List<ProductStorages>();
         public static List<Photos> Photoss { get; set; } = new List<Photos>();
+        public static List<Storage> Storages { get; set; } = new List<Storage>();
 
         public static void SeedingInit()
         {
@@ -23,9 +26,13 @@ namespace PCStore.DAL.Persistence.Seeding
             SeedBrandEntities();
             SeedCategoryEntities();
             SeedCharacteristicEntities();
+            SeedStorageEntities();
             SeedProductEntities();
             SeedPhotoEntities();
             SeedProductCharacteristicEntities();
+            SeedCharacteristicCategoriesEntities();
+            SeedCommentEntities();
+            SeedProductStorageEntities();
         }
 
         #region SeedAdvertisements
@@ -108,6 +115,79 @@ namespace PCStore.DAL.Persistence.Seeding
                 {
                     Id = i+1,
                     Name = names[i]
+                });
+            }
+        }
+        #endregion
+
+        #region SeedCharacteristicsCategories
+        private static void SeedCharacteristicCategoriesEntities()
+        {
+            int[][] links = new int[][]
+            {
+                [2, 3, 4],
+            };
+
+            for(int i = 0; i < links.GetLength(0); i++)
+            {
+                Categories[i].Characteristics = Characteristics.Where(x => links[i].Contains(x.Id)).ToList();
+            };
+        }
+        #endregion
+
+        #region SeedComments
+        private static void SeedCommentEntities()
+        {
+            string[] userIds = new string[]
+            {
+                "user@example.com", "adminUser@example.com","user@example.com","user@example.com","user@example.com","user@example.com",
+            };
+
+            string[] fullNames = new string[]
+            {
+                "FirstName LastName","Admin","FirstName LastName","FirstName LastName","FirstName LastName","FirstName LastName",
+            };
+
+            int[] productIds = new int[]
+            {
+                1, 1, 1, 1, 1, 1
+            };
+
+            int[] parentIds = new int[]
+            {
+                0, 1, 0, 0, 0, 0,
+            };
+
+            int[] ratings = new int[]
+            {
+                0, 0, 0, 5, 4, 4
+            };
+
+            string[] contents = new string[]
+            {
+                "Цей кабель підтримує 1080p 120Hz?", "Не підтримує.", "Скільки метрів має цей кабель?", "Файний кабель", "Норм кабель", "Хороший кабель"
+            };
+
+            bool[] isReviews = new bool[]
+            {
+                false, false, false, true, true, true
+            };
+
+            for (int i = 0; i < userIds.Length; i++)
+            {
+                Comments.Add(new Comment
+                {
+                    Id = i + 1,
+                    UserId = userIds[i],
+                    FullName = fullNames[i],
+                    ProductId = productIds[i],
+                    ParentId = parentIds[i] == 0 ? null : parentIds[i],
+                    CreatedDate = DateTime.Now,
+                    DateModified = DateTime.Now.AddMinutes(1),
+                    Rating = ratings[i] == 0 ? null : ratings[i],
+                    Content = contents[i],
+                    IsReview = isReviews[i],
+                    CommentStatus = Data.Models.Enums.CommentStatus.Valid
                 });
             }
         }
@@ -200,12 +280,6 @@ namespace PCStore.DAL.Persistence.Seeding
 
             };
 
-            bool[] linkables = new bool[]
-            {
-                false, true, true, true, false,
-
-            };
-
             int[] characteristicIds = new int[]
             {
                 1 , 2 , 3 , 4 , 5,
@@ -218,15 +292,71 @@ namespace PCStore.DAL.Persistence.Seeding
 
             };
 
+            int[] characteristicsOrder = new int[]
+            {
+                5, 1, 2, 3, 4,
+
+            };
+
             for (int i = 0; i < names.Length; i++)
             {
                 ProductCharacteristics.Add(new ProductCharacteristics()
                 {
                     Id = i+1,
                     Name = names[i],
-                    Linkable = linkables[i],
                     CharacteristicId = characteristicIds[i],
                     ProductId = productIds[i],
+                    Order = characteristicsOrder[i]
+                });
+            };
+        }
+        #endregion
+
+        #region SeedProductStorages
+        private static void SeedProductStorageEntities()
+        {
+            int[] productIds = new int[]
+            {
+                1
+            };
+
+            int[] storageIds = new int[]
+            {
+                1
+            };
+
+            int[] quantities = new int[]
+            {
+                10
+            };
+
+            for (int i = 0;i < productIds.Length; i++)
+            {
+                ProductStorages.Add(new ProductStorages()
+                {
+                    Id = i+1,
+                    ProductId = productIds[i],
+                    StorageId = storageIds[i],
+                    Quantity = quantities[i]
+                });
+            };
+        }
+        #endregion
+
+        #region SeedStorages
+        private static void SeedStorageEntities()
+        {
+            string[] names = new string[]
+            {
+                "Main Storage"
+            };
+
+            for (int i = 0;i < names.Length; i++)
+            {
+                Storages.Add(new Storage()
+                {
+                    Id = i+1,
+                    Name = names[i],
                 });
             };
         }

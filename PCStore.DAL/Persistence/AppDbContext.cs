@@ -48,15 +48,20 @@ public class AppDbContext : DbContext
 
     public void SeedData()
     {
-        if (!Brands.Any() && !Categories.Any() && !Products.Any())
+        if (!Brands.Any())
         {
             ProductsSeeding.SeedingInit();
 
             Advertisements.AddRange(ProductsSeeding.Advertisements);
             Brands.AddRange(ProductsSeeding.Brands);
             Categories.AddRange(ProductsSeeding.Categories);
+            Characteristics.AddRange(ProductsSeeding.Characteristics);
             Products.AddRange(ProductsSeeding.Products);
+            ProductCharacteristics.AddRange(ProductsSeeding.ProductCharacteristics);
             Photos.AddRange(ProductsSeeding.Photoss);
+            Comments.AddRange(ProductsSeeding.Comments);
+            Storages.AddRange(ProductsSeeding.Storages);
+            ProductStorages.AddRange(ProductsSeeding.ProductStorages);
 
             SaveChanges();
         }

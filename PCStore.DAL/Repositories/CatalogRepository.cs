@@ -141,6 +141,7 @@ namespace PCStore.DAL.Repositories
                 {
                     Id = c.Id,
                     Name = c.Name,
+                    PhotoLink = c.PhotoLink,
                     ProductsCount = c.Products.Count(x => x.Name.ToLower().Contains(searchStr.ToLower()))
                 })
                 .Where(c => c.ProductsCount > 0)

@@ -9,7 +9,6 @@ namespace PCStore.Data.Models
     public class ProductStorages
     {
         public int Id { get; set; }
-        public int CharacteristicId { get; set; }
         public int ProductId { get; set; }
         public int StorageId { get; set; }
         public double Quantity { get; set; }

@@ -19,7 +19,7 @@ namespace PCStore.DAL.Persistence.Configurations
 
             builder.Property(x => x.Name).HasMaxLength(100);
 
-            builder.Property(x => x.Linkable);
+            builder.Property(x => x.Order);
 
             builder.HasOne(x => x.Characteristic)
                 .WithMany(x => x.ProductCharacteristics)

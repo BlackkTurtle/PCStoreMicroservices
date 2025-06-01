@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PCStore.API.Controllers.Base;
 using PCStore.BLL.MediatR.AdvertisementHandlers.GetOrderedAdvertisements;
+using PCStore.BLL.MediatR.ProductHandlers.GetFullProductById;
 using PCStore.BLL.MediatR.ProductHandlers.GetLastNProductsWithImage;
 using PCStore.BLL.MediatR.ProductHandlers.GetMultipleProductsByIds;
 
@@ -20,6 +21,12 @@ namespace PCStore.API.Controllers
         {
             var ints = intsstr.Split(',').Select(int.Parse).ToArray();
             return HandleResult(await Mediator.Send(new GetMultipleProductsByIdsQuery(ints)));
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetFullProductById([FromRoute] int id)
+        {
+            return HandleResult(await Mediator.Send(new GetFullProductByIdQuery(id)));
         }
         /*
         [HttpPost]

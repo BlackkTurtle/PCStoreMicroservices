@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using PCStore.DAL.Caching.RedisCache;
 using PCStore.DAL.Persistence;
 using PCStore.DAL.Repositories.Contracts;
@@ -18,6 +19,18 @@ namespace PCStore.DAL.Repositories
             : base(context, redisCacheService)
         {
             _context = context;
+        }
+
+        public async Task<Product> GetFullProductById(int id)
+        {
+            return await _context.Products
+                .Include(x => x.Photos)
+                .Include(x => x.Category).ThenInclude(c => c.Characteristics)
+                .Include(x => x.Brand)
+                .Include(x => x.Comments).ThenInclude(c => c.Children)
+                .Include(x => x.ProductStorages)
+                .Include(x => x.ProductCharacteristics).ThenInclude(pc => pc.Characteristic)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<Product>> GetLastNProductsWith1Photo(int n)

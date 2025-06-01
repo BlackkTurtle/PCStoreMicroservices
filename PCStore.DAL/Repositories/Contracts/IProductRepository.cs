@@ -10,6 +10,7 @@ namespace PCStore.DAL.Repositories.Contracts
 {
     public interface IProductRepository:IGenericRepository<Product>
     {
+        Task<Product> GetFullProductById(int id);
         Task<List<Product>> GetLastNProductsWith1Photo(int n);
         Task<List<Product>> GetMultipleById(int[] ints);
     }

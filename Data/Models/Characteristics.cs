@@ -11,6 +11,6 @@ namespace PCStore.Data.Models
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public ICollection<ProductCharacteristics> ProductCharacteristics { get; set; } = null!;
-        public ICollection<Category> Categories { get; set; } = null!;
+        public List<Category> Categories { get; set; } = null!;
     }
 }
