@@ -10,6 +10,7 @@ namespace PCStore.DAL.Repositories.Contracts
     {
         IAdvertisementRepository AdvertisementRepository { get; }
         IBrandRepository BrandRepository { get; }
+        ICatalogRepository CatalogRepository { get; }
         ICategoryRepository CategoryRepository { get; }
         ICharacteristicsRepository CharacteristicsRepository { get; }
         ICommentRepository CommentRepository { get; }

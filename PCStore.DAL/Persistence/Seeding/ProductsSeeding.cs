@@ -9,13 +9,49 @@ namespace PCStore.DAL.Persistence.Seeding
 {
     public static class ProductsSeeding
     {
+        public static List<Advertisement> Advertisements { get; set; } = new List<Advertisement>();
         public static List<Brand> Brands { get; set; } = new List<Brand>();
         public static List<Category> Categories { get; set; } = new List<Category>();
+        public static List<Characteristics> Characteristics { get; set; } = new List<Characteristics>();
         public static List<Product> Products { get; set; } = new List<Product>();
+        public static List<ProductCharacteristics> ProductCharacteristics { get; set; } = new List<ProductCharacteristics>();
         public static List<Photos> Photoss { get; set; } = new List<Photos>();
-        public static List<Advertisement> Advertisements { get; set; } = new List<Advertisement>();
 
         public static void SeedingInit()
+        {
+            SeedAdvertisementEntities();
+            SeedBrandEntities();
+            SeedCategoryEntities();
+            SeedCharacteristicEntities();
+            SeedProductEntities();
+            SeedPhotoEntities();
+            SeedProductCharacteristicEntities();
+        }
+
+        #region SeedAdvertisements
+        private static void SeedAdvertisementEntities()
+        {
+            var addvertisementsLinks = new List<string>
+            {
+                "http://localhost:8002/AddvertisementPhotos/advertisement1.jpg",
+                "http://localhost:8002/AddvertisementPhotos/advertisement2.jpg",
+                "http://localhost:8002/AddvertisementPhotos/advertisement3.jpg"
+            };
+
+            for (int i = 0; i < addvertisementsLinks.Count; i++)
+            {
+                Advertisements.Add(new Advertisement()
+                {
+                    Id = i + 1,
+                    PhotoLink = addvertisementsLinks[i],
+                    Order = i
+                });
+            }
+        }
+        #endregion
+
+        #region SeedBrands
+        private static void SeedBrandEntities()
         {
             string[] BrandNames = new string[] { "DBL Electronics", "MSI", "Toshiba", "Dark Project", "Targa", "Philips", "ergo", "A4Tech", "Vinga", "Intel", "Kingston" };
             for (int i = 1; i <= BrandNames.Length; i++)
@@ -26,8 +62,14 @@ namespace PCStore.DAL.Persistence.Seeding
                     Name = BrandNames[i - 1]
                 });
             }
+        }
+        #endregion
 
-            string[] categoryNames = new string[] { "Cable", "Case", "CPU", "GPU", "HDD", "Headset", "Keyboard", "Microphone", "Monitor", "Motherboard", "Mouse", "RAM", "Speakers", "Webcam" };
+        #region SeedCategories
+        private static void SeedCategoryEntities()
+        {
+            string[] categoryNames = new string[] { "Кабелі", "Корпуси", "Процесори", "Відеокарти", "Жорсткі диски", "Навушники", "Клавіатури",
+                "Мікрофони", "Монітори", "Материнські плати", "Миші", "Оперативна пам'ять", "Акустичні системи", "Веб-камери" };
             for (int i = 1; i <= categoryNames.Length; i++)
             {
                 Categories.Add(new Category()
@@ -36,151 +78,49 @@ namespace PCStore.DAL.Persistence.Seeding
                     Name = categoryNames[i - 1]
                 });
             }
+        }
+        #endregion
 
-            Products.Add(new Product()
+        #region SeedCharacteristics
+        private static void SeedCharacteristicEntities()
+        {
+            string[] names = new string[]
             {
-                Id = 1,
-                Name = "HDI to DVI-D Cable",
-                CategoryId = 1,
-                BrandId = 1,
-                Price = 199,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 2,
-                Name = "Vinga Orc",
-                CategoryId = 2,
-                BrandId = 9,
-                Price = 1999,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 3,
-                Name = "Intel I5 8400",
-                CategoryId = 3,
-                BrandId = 10,
-                Price = 3799,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 4,
-                Name = "GTX 1660Ti MSI Gaming X",
-                CategoryId = 4,
-                BrandId = 2,
-                Price = 7999,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 5,
-                Name = "Toshiba HDD 1Tb",
-                CategoryId = 5,
-                BrandId = 3,
-                Price = 1499,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 6,
-                Name = "ergo BT490",
-                CategoryId = 6,
-                BrandId = 7,
-                Price = 699,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 7,
-                Name = "Dark Project KB104A",
-                CategoryId = 7,
-                BrandId = 5,
-                Price = 3699,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 8,
-                Name = "Mega Microphone 3000",
-                CategoryId = 8,
-                BrandId = 1,
-                Price = 699,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 9,
-                Name = "Philips 2473LE FullHD",
-                CategoryId = 9,
-                BrandId = 6,
-                Price = 2799,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 10,
-                Name = "MSI B360M Gaming Plus",
-                CategoryId = 10,
-                BrandId = 2,
-                Price = 2749,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 11,
-                Name = "A4Tech N70-FX",
-                CategoryId = 11,
-                BrandId = 8,
-                Price = 349,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 12,
-                Name = "Kingston Fury 8Gb 2666",
-                CategoryId = 12,
-                BrandId = 11,
-                Price = 1199,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 13,
-                Name = "Targa EVO 550",
-                CategoryId = 13,
-                BrandId = 5,
-                Price = 899,
-                CreatedDate = DateTime.Now
-            });
-            Products.Add(new Product()
-            {
-                Id = 14,
-                Name = "A4Tech NFL Webcam",
-                CategoryId = 14,
-                BrandId = 8,
-                Price = 399,
-                CreatedDate = DateTime.Now
-            });
+                "Гарантія", "Роз'єм 1", "Роз'єм 2", "Довжина", "Країна виробник"
 
+            };
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                Characteristics.Add(new Characteristics()
+                {
+                    Id = i+1,
+                    Name = names[i]
+                });
+            }
+        }
+        #endregion
+
+        #region SeedPhotos
+        private static void SeedPhotoEntities()
+        {
             var photoLinks = new string[,]
-{
-    { "http://localhost:8002/PhotoFiles/1.jpg", "http://localhost:8002/PhotoFiles/2.jpg", "http://localhost:8002/PhotoFiles/3.jpg" },
-    { "http://localhost:8002/PhotoFiles/4.jpg", "http://localhost:8002/PhotoFiles/5.jpg", "http://localhost:8002/PhotoFiles/6.jpg" },
-    { "http://localhost:8002/PhotoFiles/7.jpg", "http://localhost:8002/PhotoFiles/8.jpg", "http://localhost:8002/PhotoFiles/9.jpg" },
-    { "http://localhost:8002/PhotoFiles/10.jpg", "http://localhost:8002/PhotoFiles/11.jpg", "http://localhost:8002/PhotoFiles/12.jpg" },
-    { "http://localhost:8002/PhotoFiles/13.jpg", "http://localhost:8002/PhotoFiles/14.jpg", "http://localhost:8002/PhotoFiles/15.jpg" },
-    { "http://localhost:8002/PhotoFiles/16.jpg", "http://localhost:8002/PhotoFiles/17.jpg", "http://localhost:8002/PhotoFiles/18.jpg" },
-    { "http://localhost:8002/PhotoFiles/19.jpg", "http://localhost:8002/PhotoFiles/20.jpg", "http://localhost:8002/PhotoFiles/21.jpg" },
-    { "http://localhost:8002/PhotoFiles/22.jpg", "http://localhost:8002/PhotoFiles/23.jpg", "http://localhost:8002/PhotoFiles/24.jpg" },
-    { "http://localhost:8002/PhotoFiles/25.jpg", "http://localhost:8002/PhotoFiles/26.jpg", "http://localhost:8002/PhotoFiles/27.jpg" },
-    { "http://localhost:8002/PhotoFiles/28.jpg", "http://localhost:8002/PhotoFiles/29.jpg", "http://localhost:8002/PhotoFiles/30.jpg" },
-    { "http://localhost:8002/PhotoFiles/31.jpg", "http://localhost:8002/PhotoFiles/32.jpg", "http://localhost:8002/PhotoFiles/33.jpg" },
-    { "http://localhost:8002/PhotoFiles/34.jpg", "http://localhost:8002/PhotoFiles/35.jpg", "http://localhost:8002/PhotoFiles/36.jpg" },
-    { "http://localhost:8002/PhotoFiles/37.jpg", "http://localhost:8002/PhotoFiles/38.jpg", "http://localhost:8002/PhotoFiles/39.jpg" },
-    { "http://localhost:8002/PhotoFiles/40.jpg", "http://localhost:8002/PhotoFiles/41.jpg", "http://localhost:8002/PhotoFiles/42.jpg" }
-};
+            {
+                { "http://localhost:8002/PhotoFiles/1.jpg", "http://localhost:8002/PhotoFiles/2.jpg", "http://localhost:8002/PhotoFiles/3.jpg" },
+                { "http://localhost:8002/PhotoFiles/4.jpg", "http://localhost:8002/PhotoFiles/5.jpg", "http://localhost:8002/PhotoFiles/6.jpg" },
+                { "http://localhost:8002/PhotoFiles/7.jpg", "http://localhost:8002/PhotoFiles/8.jpg", "http://localhost:8002/PhotoFiles/9.jpg" },
+                { "http://localhost:8002/PhotoFiles/10.jpg", "http://localhost:8002/PhotoFiles/11.jpg", "http://localhost:8002/PhotoFiles/12.jpg" },
+                { "http://localhost:8002/PhotoFiles/13.jpg", "http://localhost:8002/PhotoFiles/14.jpg", "http://localhost:8002/PhotoFiles/15.jpg" },
+                { "http://localhost:8002/PhotoFiles/16.jpg", "http://localhost:8002/PhotoFiles/17.jpg", "http://localhost:8002/PhotoFiles/18.jpg" },
+                { "http://localhost:8002/PhotoFiles/19.jpg", "http://localhost:8002/PhotoFiles/20.jpg", "http://localhost:8002/PhotoFiles/21.jpg" },
+                { "http://localhost:8002/PhotoFiles/22.jpg", "http://localhost:8002/PhotoFiles/23.jpg", "http://localhost:8002/PhotoFiles/24.jpg" },
+                { "http://localhost:8002/PhotoFiles/25.jpg", "http://localhost:8002/PhotoFiles/26.jpg", "http://localhost:8002/PhotoFiles/27.jpg" },
+                { "http://localhost:8002/PhotoFiles/28.jpg", "http://localhost:8002/PhotoFiles/29.jpg", "http://localhost:8002/PhotoFiles/30.jpg" },
+                { "http://localhost:8002/PhotoFiles/31.jpg", "http://localhost:8002/PhotoFiles/32.jpg", "http://localhost:8002/PhotoFiles/33.jpg" },
+                { "http://localhost:8002/PhotoFiles/34.jpg", "http://localhost:8002/PhotoFiles/35.jpg", "http://localhost:8002/PhotoFiles/36.jpg" },
+                { "http://localhost:8002/PhotoFiles/37.jpg", "http://localhost:8002/PhotoFiles/38.jpg", "http://localhost:8002/PhotoFiles/39.jpg" },
+                { "http://localhost:8002/PhotoFiles/40.jpg", "http://localhost:8002/PhotoFiles/41.jpg", "http://localhost:8002/PhotoFiles/42.jpg" }
+            };
 
             int a = 1;
             for (int i = 1; i <= Math.Min(Products.Count, photoLinks.GetLength(0)); i++)
@@ -196,23 +136,88 @@ namespace PCStore.DAL.Persistence.Seeding
                     a++;
                 }
             }
+        }
+        #endregion
 
-            var addvertisementsLinks = new List<string>
+        #region SeedProducts
+        private static void SeedProductEntities()
+        {
+            string[] productNames = new string[]
             {
-                "http://localhost:8002/AddvertisementPhotos/advertisement1.jpg",
-                "http://localhost:8002/AddvertisementPhotos/advertisement2.jpg",
-                "http://localhost:8002/AddvertisementPhotos/advertisement3.jpg"
+                "Кабель HDMI to DVI-D Cable", "Корпус Vinga Orc", "Процесор Intel I5 8400", "Відеокарта GTX 1660Ti MSI Gaming X", " Жорсткий диск Toshiba HDD 1Tb",
+                "Навушники ergo BT490", "Клавіатура Dark Project KB104A", "Мікрофон Mega Microphone 3000", "Монітор Philips 2473LE FullHD", "Материнська плата MSI B360M Gaming Plus",
+                "Миша A4Tech N70-FX", "Оперативна пам'ять Kingston Fury 8Gb 2666", "Акустична система Targa EVO 550", "Веб-камера A4Tech NFL Webcam"
             };
 
-            for (int i = 0; i < addvertisementsLinks.Count; i++) 
+            int[] categoryIds = new int[]
             {
-                Advertisements.Add(new Advertisement()
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
+            };
+
+            int[] brandIds = new int[]
+            {
+                1, 9, 10, 2, 3, 7, 5, 1, 6, 2, 8, 11, 5, 8
+            };
+
+            double[] prices = new double[]
+            {
+                199, 1999, 3799, 7999, 1499, 699, 3699, 699, 2799, 2749, 349, 1199, 899, 399
+            };
+
+            for (int i = 0; i < productNames.Length; i++)
+            {
+                Products.Add(new Product()
                 {
                     Id = i+1,
-                    PhotoLink = addvertisementsLinks[i],
-                    Order = i
+                    Name = productNames[i],
+                    CategoryId = categoryIds[i],
+                    BrandId = brandIds[i],
+                    Price = prices[i],
+                    CreatedDate = DateTime.Now
                 });
-            }
+            };
         }
+        #endregion
+
+        #region SeedProductCharacteristics
+        private static void SeedProductCharacteristicEntities()
+        {
+            string[] names = new string[]
+            {
+                "12 місяців", "HDMI", "DVI-D", "2m", "Китай",
+
+            };
+
+            bool[] linkables = new bool[]
+            {
+                false, true, true, true, false,
+
+            };
+
+            int[] characteristicIds = new int[]
+            {
+                1 , 2 , 3 , 4 , 5,
+
+            };
+
+            int[] productIds = new int[]
+            {
+                1, 1, 1, 1, 1,
+
+            };
+
+            for (int i = 0; i < names.Length; i++)
+            {
+                ProductCharacteristics.Add(new ProductCharacteristics()
+                {
+                    Id = i+1,
+                    Name = names[i],
+                    Linkable = linkables[i],
+                    CharacteristicId = characteristicIds[i],
+                    ProductId = productIds[i],
+                });
+            };
+        }
+        #endregion
     }
 }

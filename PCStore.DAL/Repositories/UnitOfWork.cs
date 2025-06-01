@@ -22,6 +22,7 @@ namespace PCStore.DAL.Repositories
 
         private IAdvertisementRepository advertisementRepository;
         private IBrandRepository brandRepository;
+        private ICatalogRepository catalogRepository;
         private ICategoryRepository categoryRepository;
         private ICharacteristicsRepository characteristicsRepository;
         private ICommentRepository commentRepository;
@@ -71,6 +72,19 @@ namespace PCStore.DAL.Repositories
                 }
 
                 return brandRepository;
+            }
+        }
+
+        public ICatalogRepository CatalogRepository
+        {
+            get
+            {
+                if (catalogRepository is null)
+                {
+                    catalogRepository = new CatalogRepository(_dbContext, redisCacheService);
+                }
+
+                return catalogRepository;
             }
         }
 
