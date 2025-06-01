@@ -23,6 +23,9 @@ namespace PCStore.DAL.Persistence.Configurations
             builder.Property(x => x.Description)
                 .HasMaxLength(500);
 
+            builder.Property(x => x.PhotoLink)
+                .HasMaxLength(500);
+
             builder.HasMany(x => x.Products)
                 .WithOne(x => x.Category)
                 .HasForeignKey(x => x.CategoryId)

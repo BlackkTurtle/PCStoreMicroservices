@@ -68,6 +68,17 @@ namespace PCStore.DAL.Persistence.Seeding
         #region SeedCategories
         private static void SeedCategoryEntities()
         {
+            var photoLinks = new List<string>
+            {
+                "http://localhost:8002/CategoryPhotos/1.png", "http://localhost:8002/CategoryPhotos/2.png",
+                "http://localhost:8002/CategoryPhotos/3.png", "http://localhost:8002/CategoryPhotos/4.png",
+                "http://localhost:8002/CategoryPhotos/5.png", "http://localhost:8002/CategoryPhotos/6.png",
+                "http://localhost:8002/CategoryPhotos/7.png", "http://localhost:8002/CategoryPhotos/8.png",
+                "http://localhost:8002/CategoryPhotos/9.png", "http://localhost:8002/CategoryPhotos/10.png",
+                "http://localhost:8002/CategoryPhotos/11.png", "http://localhost:8002/CategoryPhotos/12.png",
+                "http://localhost:8002/CategoryPhotos/13.png", "http://localhost:8002/CategoryPhotos/14.png",
+            };
+
             string[] categoryNames = new string[] { "Кабелі", "Корпуси", "Процесори", "Відеокарти", "Жорсткі диски", "Навушники", "Клавіатури",
                 "Мікрофони", "Монітори", "Материнські плати", "Миші", "Оперативна пам'ять", "Акустичні системи", "Веб-камери" };
             for (int i = 1; i <= categoryNames.Length; i++)
@@ -75,7 +86,8 @@ namespace PCStore.DAL.Persistence.Seeding
                 Categories.Add(new Category()
                 {
                     Id = i,
-                    Name = categoryNames[i - 1]
+                    Name = categoryNames[i - 1],
+                    PhotoLink = photoLinks[i - 1]
                 });
             }
         }

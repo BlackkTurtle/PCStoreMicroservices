@@ -48,7 +48,7 @@ namespace PCStore.DAL.Persistence.Configurations
             builder.HasOne(x => x.Nakladna)
                 .WithOne(x => x.Order)
                 .HasForeignKey<Order>(x => x.NakladnaId)
-                .IsRequired(true)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

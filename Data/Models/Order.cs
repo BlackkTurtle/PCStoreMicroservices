@@ -16,7 +16,7 @@ namespace PCStore.Data.Models
         public string? FatherName { get; set; }
         public int DeliverAddressId { get; set; }
         public int PaymentTypeId { get; set; }
-        public int NakladnaId { get; set; }
+        public int? NakladnaId { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public string PhoneNumber { get; set; } = null!;
         public DateTime CreatedDate { get; set; }

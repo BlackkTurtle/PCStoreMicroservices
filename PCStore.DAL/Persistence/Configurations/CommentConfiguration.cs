@@ -34,6 +34,8 @@ namespace PCStore.DAL.Persistence.Configurations
             builder.Property(x => x.Content)
                 .HasMaxLength(500);
 
+            builder.Property(x => x.IsReview);
+
             builder.HasOne(c => c.Parent)
                 .WithMany(c => c.Children)
                 .HasForeignKey(c => c.ParentId);
