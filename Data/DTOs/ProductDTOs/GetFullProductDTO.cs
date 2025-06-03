@@ -14,6 +14,7 @@ namespace PCStore.Data.DTOs.ProductDTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public double Price { get; set; }
         public List<string> Images { get; set; }
         public CategoryIdNameDTO CategoryIdNameDTO { get; set; }
         public string BrandName { get; set; }

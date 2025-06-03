@@ -33,7 +33,9 @@ namespace UserDataAccess.Services
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim("userName", user.UserName.ToString())
+                new Claim("userName", user.UserName.ToString()),
+                new Claim("firstName", user.FirstName.ToString()),
+                new Claim("lastName", user.LastName.ToString())
             };
 
             var roles = await _userManager.GetRolesAsync(user);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PCStore.Data.Models.Enums
 {
-    public enum CommentStatus
+    public enum CommentStatusEnum
     {
         Valid,
         Review,

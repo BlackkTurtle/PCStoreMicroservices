@@ -187,7 +187,7 @@ namespace PCStore.DAL.Persistence.Seeding
                     Rating = ratings[i] == 0 ? null : ratings[i],
                     Content = contents[i],
                     IsReview = isReviews[i],
-                    CommentStatus = Data.Models.Enums.CommentStatus.Valid
+                    CommentStatus = Data.Models.Enums.CommentStatusEnum.Valid
                 });
             }
         }

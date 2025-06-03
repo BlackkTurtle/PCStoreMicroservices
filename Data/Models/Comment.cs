@@ -15,13 +15,13 @@ namespace PCStore.Data.Models
         public int ProductId { get; set; }
         public int? ParentId { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime DateModified { get; set; }
+        public DateTime? DateModified { get; set; }
         public int? Rating { get; set; }
         public string Content { get; set; } = null!;
         public bool IsReview { get; set; }
         public Product Product { get; set; } = null!;
         public Comment? Parent { get; set; }
         public ICollection<Comment>? Children { get; set; }
-        public CommentStatus CommentStatus { get; set; }
+        public CommentStatusEnum CommentStatus { get; set; }
     }
 }

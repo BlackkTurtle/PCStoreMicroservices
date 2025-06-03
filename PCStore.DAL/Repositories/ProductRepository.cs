@@ -21,6 +21,11 @@ namespace PCStore.DAL.Repositories
             _context = context;
         }
 
+        public async Task<bool> CheckIfProductExistById(int id)
+        {
+            return await _context.Products.AnyAsync(p => p.Id == id);
+        }
+
         public async Task<Product> GetFullProductById(int id)
         {
             return await _context.Products

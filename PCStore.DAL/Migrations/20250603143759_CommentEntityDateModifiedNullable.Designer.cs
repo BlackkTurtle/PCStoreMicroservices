@@ -11,8 +11,8 @@ using PCStore.DAL.Persistence;
 namespace PCStore.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250525191042_AddedCategoryCharacteristics")]
-    partial class AddedCategoryCharacteristics
+    [Migration("20250603143759_CommentEntityDateModifiedNullable")]
+    partial class CommentEntityDateModifiedNullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,24 @@ namespace PCStore.DAL.Migrations
                     b.HasIndex("CharacteristicsId");
 
                     b.ToTable("CategoryCharacteristics");
+                });
+
+            modelBuilder.Entity("PCStore.Data.Models.Advertisement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PhotoLink")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Advertisements");
                 });
 
             modelBuilder.Entity("PCStore.Data.Models.Brand", b =>
@@ -64,6 +82,10 @@ namespace PCStore.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PhotoLink")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
@@ -90,7 +112,7 @@ namespace PCStore.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CommentStatusEnum")
+                    b.Property<int>("CommentStatus")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
@@ -100,12 +122,15 @@ namespace PCStore.DAL.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DateModified")
+                    b.Property<DateTime?>("DateModified")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")
                         .HasMaxLength(60)
                         .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsReview")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("ParentId")
                         .HasColumnType("INTEGER");
@@ -113,7 +138,7 @@ namespace PCStore.DAL.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Rating")
+                    b.Property<int?>("Rating")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UserId")
@@ -546,12 +571,12 @@ namespace PCStore.DAL.Migrations
                     b.Property<int>("CharacteristicId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<bool>("Linkable")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Name")
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
@@ -621,9 +646,6 @@ namespace PCStore.DAL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CharacteristicId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ProductId")

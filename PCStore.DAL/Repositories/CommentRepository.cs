@@ -20,6 +20,11 @@ namespace PCStore.DAL.Repositories
             _context = context;
         }
 
+        public async Task<bool> CheckIfCommentWithProductIdExist(int productId, int id)
+        {
+            return await _context.Comments.AnyAsync(x => x.Id == id && x.ProductId == productId && x.ParentId == null && x.IsReview == false);
+        }
+
         public async Task<double> GetRatingByProductId(int productId)
         {
             return await _context.Comments

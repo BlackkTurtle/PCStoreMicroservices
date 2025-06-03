@@ -39,5 +39,9 @@ namespace PCStore.DAL.Repositories.Contracts
         Task<IEnumerable<TResult>> GetAllAsync<TResult>(IBaseSpecification<T, TResult> specification = null);
 
         Task<TResult> GetFirstOrDefaultAsync<TResult>(IBaseSpecification<T, TResult> specification = null);
+
+        Task<IEnumerable<T>> GetAllAsync();
+
+        Task<T> GetFirstOrDefaultAsync(int id);
     }
 }

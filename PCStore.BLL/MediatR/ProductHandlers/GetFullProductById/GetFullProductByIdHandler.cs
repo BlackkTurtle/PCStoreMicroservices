@@ -44,6 +44,7 @@ namespace PCStore.BLL.MediatR.ProductHandlers.GetFullProductById
             {
                 Id = entityFromDB.Id,
                 Name = entityFromDB.Name,
+                Price = entityFromDB.Price,
                 Images = entityFromDB.Photos.Select(x => x.PhotoLink).ToList(),
                 CategoryIdNameDTO = new Data.DTOs.CategoryDTOs.CategoryIdNameDTO()
                 {

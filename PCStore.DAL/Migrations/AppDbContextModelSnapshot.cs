@@ -119,7 +119,7 @@ namespace PCStore.DAL.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("DateModified")
+                    b.Property<DateTime?>("DateModified")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FullName")

@@ -108,7 +108,7 @@ namespace PCStore.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CommentStatus")
+                    b.Property<int>("CommentStatusEnum")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")

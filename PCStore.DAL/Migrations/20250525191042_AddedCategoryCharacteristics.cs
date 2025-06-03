@@ -11,7 +11,7 @@ namespace PCStore.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "CommentStatus",
+                name: "CommentStatusEnum",
                 table: "Comments",
                 type: "INTEGER",
                 nullable: false,
@@ -54,7 +54,7 @@ namespace PCStore.DAL.Migrations
                 name: "CategoryCharacteristics");
 
             migrationBuilder.DropColumn(
-                name: "CommentStatus",
+                name: "CommentStatusEnum",
                 table: "Comments");
         }
     }

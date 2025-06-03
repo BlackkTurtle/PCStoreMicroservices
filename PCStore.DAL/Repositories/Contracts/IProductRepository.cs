@@ -13,5 +13,6 @@ namespace PCStore.DAL.Repositories.Contracts
         Task<Product> GetFullProductById(int id);
         Task<List<Product>> GetLastNProductsWith1Photo(int n);
         Task<List<Product>> GetMultipleById(int[] ints);
+        Task<bool> CheckIfProductExistById(int id);
     }
 }

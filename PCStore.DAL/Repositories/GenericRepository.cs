@@ -141,5 +141,15 @@ namespace PCStore.DAL.Repositories
         {
             return SpecificationEvaluator<T, TResult>.GetQuery(_dbSet.AsQueryable(), specification);
         }
+
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
+        }
+
+        public async Task<T> GetFirstOrDefaultAsync(int id)
+        {
+            return await _dbSet.FindAsync(id);
+        }
     }
 }

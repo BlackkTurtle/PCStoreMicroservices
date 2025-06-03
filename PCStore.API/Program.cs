@@ -19,6 +19,8 @@ using PCStore.API.Middleware;
 using PCStore.BLL.Services.Contracts;
 using PCStore.BLL.Services;
 using Serilog;
+using PCStore.BLL.APIData.Contracts;
+using PCStore.BLL.APIData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,24 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtSettings["Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            if (context.Request.Headers.TryGetValue("Authorization", out var authorizationHeader))
+            {
+                context.Token = authorizationHeader.ToString().Split(" ").Last();
+            }
+
+            if (string.IsNullOrEmpty(context.Token) && context.Request.Cookies.TryGetValue("AuthToken", out var cookieToken))
+            {
+                context.Token = cookieToken;
+            }
+
+            return Task.CompletedTask;
+        }
+    };
 });
 
 // Authorization
@@ -70,6 +90,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(currentAss
 //AddingServices
 builder.Services.AddScoped<IRedisCacheService,RedisCacheService>();
 builder.Services.AddScoped<ILoggerService,LoggerService>();
+builder.Services.AddScoped<IModelAPIService, ModelAPIService>();
 
 //Adding Cache
 builder.Services.AddStackExchangeRedisCache(options =>
@@ -92,32 +113,7 @@ builder.Services.AddCors(options =>
 });
 
 //Adding Swagger Authorization
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "PCStore API", Version = "v1" });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Type = SecuritySchemeType.Http,
-        Scheme = "bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme.",
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
-});
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 

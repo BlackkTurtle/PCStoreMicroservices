@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using UserDataAccess.Models;
 using UserDataAccess.Services;
+using UserManager.API.Extensions;
 using UserManager.API.Messages;
 using UserManager.API.Models;
 
@@ -69,6 +70,8 @@ namespace UserManager.API.Controllers
                 return Unauthorized();
 
             var token = await _tokenService.GenerateTokenAsync(user);
+
+            HttpContext.AppendTokenToCookie(token, user.UserName!);
             return Ok(new { Token = token });
         }
 
