@@ -29,8 +29,8 @@ namespace UserDataAccess.Seeding
                 UserName = "adminUser@example.com",
                 Email = "adminUser@example.com",
                 NormalizedUserName = "ADMINUSER",
-                FirstName = "erfgeffe",
-                LastName = "grgrf",
+                FirstName = "Admin",
+                LastName = "Adminovich",
                 Father = "gefgfgef"
             };
 
@@ -51,8 +51,8 @@ namespace UserDataAccess.Seeding
                 UserName = "user@example.com",
                 Email = "user@example.com",
                 NormalizedUserName = "USER",
-                FirstName="erfgeffe",
-                LastName="grgrf",
+                FirstName="FirstName",
+                LastName="LastName",
                 Father="gefgfgef"
             };
 

@@ -16,12 +16,14 @@ namespace UserManager.API.Extensions
             {
                 HttpOnly = true,
                 Secure = true,
+                IsEssential = true,
                 SameSite = SameSiteMode.None, // Required for cross-domain cookies
-                Domain = ".localhost", // Allows cookies for all subdomains
                 Expires = DateTime.UtcNow.AddMinutes(60)
             };
 
             context.Response.Cookies.Append("AuthToken", token, cookieOptions);
+
+            cookieOptions.HttpOnly = false;
 
             context.Response.Cookies.Append("userId", userId, cookieOptions);
         }

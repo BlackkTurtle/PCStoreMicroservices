@@ -60,6 +60,10 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
+    .AddCookie(x =>
+    {
+        x.Cookie.Name = "AuthToken";
+    })
 .AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -77,16 +81,7 @@ builder.Services.AddAuthentication(options =>
     {
         OnMessageReceived = context =>
         {
-            if (context.Request.Headers.TryGetValue("Authorization", out var authorizationHeader))
-            {
-                context.Token = authorizationHeader.ToString().Split(" ").Last();
-            }
-
-            if (string.IsNullOrEmpty(context.Token) && context.Request.Cookies.TryGetValue("AuthToken", out var cookieToken))
-            {
-                context.Token = cookieToken;
-            }
-
+            context.Token = context.Request.Cookies["AuthToken"];
             return Task.CompletedTask;
         }
     };
@@ -105,7 +100,16 @@ builder.Services.AddScoped<IMessageProducer,MessageProducer>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularOrigins", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8080")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -125,12 +129,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-app.UseCors(options=>options
-.WithOrigins(new[] { "http://localhost:4200","http://localhost:3000","http://localhost:8080"})
-.AllowAnyHeader()
-.AllowAnyMethod()
-.AllowCredentials()
-);
+app.UseCors("AllowAngularOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization();

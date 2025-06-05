@@ -106,10 +106,13 @@ builder.Services.AddEndpointsApiExplorer();
 //Adding CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowOrigin",
-        builder => builder.WithOrigins("http://localhost:4200")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod());
+    options.AddPolicy("AllowAngularOrigins", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "http://localhost:3000", "http://localhost:8080")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
 });
 
 //Adding Swagger Authorization
@@ -140,7 +143,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-app.UseCors("AllowOrigin");
+app.UseCors("AllowAngularOrigins");
 
 app.UseMiddleware<GlobalExceptionHandlerMiddleware>();
 

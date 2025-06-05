@@ -50,11 +50,16 @@ namespace PCStore.DAL.Repositories
 
         public async Task<List<Product>> GetMultipleById(int[] ints)
         {
-            return await _context.Products
-                     .Where(p => ints.Contains(p.Id))
-                     .Include(x => x.Photos.OrderBy(photo => photo.Id).Take(1))
-                     .Include(x => x.Comments)
-                     .ToListAsync();
+            var products = await _context.Products
+                .Where(p => ints.Contains(p.Id))
+                .Include(p => p.Photos.OrderBy(photo => photo.Id).Take(1))
+                .Include(p => p.Comments)
+                .ToListAsync();
+
+            var productDict = products.ToDictionary(p => p.Id);
+            return ints.Where(id => productDict.ContainsKey(id))
+                       .Select(id => productDict[id])
+                       .ToList();
         }
     }
 }

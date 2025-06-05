@@ -98,5 +98,21 @@ namespace UserManager.API.Controllers
 
             return Ok(userDTO);
         }
+
+        [HttpGet("check-auth")]
+        [Authorize]
+        public IActionResult CheckAuth()
+        {
+            return Ok();
+        }
+
+        [HttpPost("logout")]
+        [Authorize]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("AuthToken");
+            Response.Cookies.Delete("userId");
+            return Ok();
+        }
     }
 }
