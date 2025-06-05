@@ -38,7 +38,8 @@ namespace PCStore.DAL.Persistence.Configurations
 
             builder.HasOne(c => c.Parent)
                 .WithMany(c => c.Children)
-                .HasForeignKey(c => c.ParentId);
+                .HasForeignKey(c => c.ParentId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne(c => c.Product)
                 .WithMany(c => c.Comments)

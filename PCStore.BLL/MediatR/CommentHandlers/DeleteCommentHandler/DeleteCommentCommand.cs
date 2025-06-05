@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace PCStore.BLL.MediatR.CommentHandlers.DeleteCommentHandler
 {
-    public record DeleteCommentCommand(int commentId, string userId) : IRequest<Result<bool>>
+    public record DeleteCommentCommand(int commentId, string userId) : IRequest<Result<object>>
     {
     }
 }

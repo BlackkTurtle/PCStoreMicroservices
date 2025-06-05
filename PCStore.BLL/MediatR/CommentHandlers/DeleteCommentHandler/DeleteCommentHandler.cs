@@ -6,6 +6,7 @@ using PCStore.BLL.Services.Contracts;
 using PCStore.BLL.Specifications.AdvertisementSpecifications;
 using PCStore.BLL.Specifications.BrandSpecifications;
 using PCStore.BLL.Specifications.CategorySpecifications;
+using PCStore.BLL.Specifications.CommentSpecifications;
 using PCStore.BLL.Specifications.ProductSpecifications;
 using PCStore.DAL.Repositories.Contracts;
 using PCStore.Data.DTOs.BrandDTOs;
@@ -25,7 +26,7 @@ using System.Threading.Tasks;
 
 namespace PCStore.BLL.MediatR.CommentHandlers.DeleteCommentHandler
 {
-    public class DeleteCommentHandler : IRequestHandler<DeleteCommentCommand, Result<bool>>
+    public class DeleteCommentHandler : IRequestHandler<DeleteCommentCommand, Result<object>>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IModelAPIService modelAPIService;
@@ -38,9 +39,9 @@ namespace PCStore.BLL.MediatR.CommentHandlers.DeleteCommentHandler
             this.modelAPIService = modelAPIService;
         }
 
-        public async Task<Result<bool>> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<object>> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
         {
-            var entityFromDB = await unitOfWork.CommentRepository.GetFirstOrDefaultAsync(request.commentId);
+            var entityFromDB = await unitOfWork.CommentRepository.GetFirstOrDefaultAsync(new CommentWithCommentsSpecification(request.commentId));
 
             if (entityFromDB is null)
             {
@@ -67,7 +68,7 @@ namespace PCStore.BLL.MediatR.CommentHandlers.DeleteCommentHandler
                 throw new InternalServerErrorException();
             }
 
-            return Result.Ok(true);
+            return Result.Ok(new { result =  true });
         }
     }
 }
