@@ -8,6 +8,7 @@ using PCStore.DAL.Repositories.Contracts;
 using PCStore.DAL.Specification;
 using PCStore.Data.DTOs.ProductDTOs;
 using PCStore.Data.Models;
+using PCStore.Data.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace PCStore.BLL.MediatR.ProductHandlers.GetFullProductById
                 CreatedDate = entityFromDB.CreatedDate,
                 Rating = entityFromDB.Comments.Average(c => (double?)c.Rating) ?? 0.0,
                 Availlability = entityFromDB.ProductStorages.Any(x => x.Quantity > 0),
-                Comments = entityFromDB.Comments.Where(c => !c.IsReview && c.ParentId == null).OrderByDescending(c => c.CreatedDate).Select(c => new Data.DTOs.CommentDTOs.GetCommentDTO()
+                Comments = entityFromDB.Comments.Where(c => !c.IsReview && c.ParentId == null && c.CommentStatus != CommentStatusEnum.Deleted).OrderByDescending(c => c.CreatedDate).Select(c => new Data.DTOs.CommentDTOs.GetCommentDTO()
                 {
                     Id = c.Id,
                     UserId = c.UserId,
@@ -74,7 +75,7 @@ namespace PCStore.BLL.MediatR.ProductHandlers.GetFullProductById
                         Content = ch.Content,
                     }).ToList(),
                 }).ToList(),
-                Reviews = entityFromDB.Comments.Where(c => c.IsReview).OrderByDescending(c => c.CreatedDate).Select(c => new Data.DTOs.CommentDTOs.GetReviewDTO()
+                Reviews = entityFromDB.Comments.Where(c => c.IsReview && c.CommentStatus != CommentStatusEnum.Deleted).OrderByDescending(c => c.CreatedDate).Select(c => new Data.DTOs.CommentDTOs.GetReviewDTO()
                 {
                     Id = c.Id,
                     UserId = c.UserId,

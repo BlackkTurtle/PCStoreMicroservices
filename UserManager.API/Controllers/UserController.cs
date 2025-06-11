@@ -106,6 +106,13 @@ namespace UserManager.API.Controllers
             return Ok();
         }
 
+        [HttpGet("check-admin")]
+        [Authorize(Policy = "OnlyAdmin")]
+        public IActionResult CheckAdmin()
+        {
+            return Ok();
+        }
+
         [HttpPost("logout")]
         [Authorize]
         public IActionResult Logout()

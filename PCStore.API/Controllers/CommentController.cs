@@ -6,7 +6,9 @@ using PCStore.BLL.MediatR.CommentHandlers.CreateCommentHandler;
 using PCStore.BLL.MediatR.CommentHandlers.CreateCommentResponseHandler;
 using PCStore.BLL.MediatR.CommentHandlers.CreateReviewHandler;
 using PCStore.BLL.MediatR.CommentHandlers.DeleteCommentHandler;
+using PCStore.BLL.MediatR.CommentHandlers.GetCommentReviewsHandler;
 using PCStore.BLL.MediatR.CommentHandlers.UpdateCommentHandler;
+using PCStore.BLL.MediatR.CommentHandlers.UpdateCommentStatusesHandler;
 using PCStore.BLL.MediatR.OtherHandlers.GetSearchResults;
 using PCStore.Data.DTOs.CommentDTOs;
 using System.Security.Claims;
@@ -61,6 +63,20 @@ namespace PCStore.API.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             return HandleResult(await Mediator.Send(new DeleteCommentCommand(id, userId)));
+        }
+
+        [Authorize(Policy = "OnlyAdmin")]
+        [HttpGet]
+        public async Task<IActionResult> GetCommentReviews()
+        {
+            return HandleResult(await Mediator.Send(new GetCommentReviewsQuery()));
+        }
+
+        [Authorize(Policy = "OnlyAdmin")]
+        [HttpPut]
+        public async Task<IActionResult> UpdateCommentStatuses([FromBody] List<UpdateCommentReviewDTO> updateCommentReviewDTOs)
+        {
+            return HandleResult(await Mediator.Send(new UpdateCommentStatusesCommand(updateCommentReviewDTOs)));
         }
     }
 }
