@@ -86,8 +86,8 @@ namespace PCStore.DAL.Persistence.Seeding
                 "http://localhost:8002/CategoryPhotos/13.png", "http://localhost:8002/CategoryPhotos/14.png",
             };
 
-            string[] categoryNames = new string[] { "Кабелі", "Корпуси", "Процесори", "Відеокарти", "Жорсткі диски", "Навушники", "Клавіатури",
-                "Мікрофони", "Монітори", "Материнські плати", "Миші", "Оперативна пам'ять", "Акустичні системи", "Веб-камери" };
+            string[] categoryNames = new string[] { "Cables", "PC Cases", "CPUs", "GPUs", "HDDs", "Headphones", "Keyboards",
+                "Microphones", "Monitors", "Motherboards", "Mouses", "RAM", "Speakers", "Webcams" };
             for (int i = 1; i <= categoryNames.Length; i++)
             {
                 Categories.Add(new Category()
@@ -105,7 +105,7 @@ namespace PCStore.DAL.Persistence.Seeding
         {
             string[] names = new string[]
             {
-                "Гарантія", "Роз'єм 1", "Роз'єм 2", "Довжина", "Країна виробник"
+                "Guaranty", "Exit1", "Exit 2", "Length", "Country manufacturer"
 
             };
 
@@ -165,7 +165,7 @@ namespace PCStore.DAL.Persistence.Seeding
 
             string[] contents = new string[]
             {
-                "Цей кабель підтримує 1080p 120Hz?", "Не підтримує.", "Скільки метрів має цей кабель?", "Файний кабель", "Норм кабель", "Хороший кабель"
+                "Does this cable support 1080p 120Hz?", "No, it does not.", "Which is the length of this cable?", "Good cable", "Average cable", "WellDone cable"
             };
 
             bool[] isReviews = new bool[]
@@ -236,9 +236,9 @@ namespace PCStore.DAL.Persistence.Seeding
         {
             string[] productNames = new string[]
             {
-                "Кабель HDMI to DVI-D Cable", "Корпус Vinga Orc", "Процесор Intel I5 8400", "Відеокарта GTX 1660Ti MSI Gaming X", " Жорсткий диск Toshiba HDD 1Tb",
-                "Навушники ergo BT490", "Клавіатура Dark Project KB104A", "Мікрофон Mega Microphone 3000", "Монітор Philips 2473LE FullHD", "Материнська плата MSI B360M Gaming Plus",
-                "Миша A4Tech N70-FX", "Оперативна пам'ять Kingston Fury 8Gb 2666", "Акустична система Targa EVO 550", "Веб-камера A4Tech NFL Webcam"
+                "Cable HDMI to DVI-D Cable", "Case Vinga Orc", "CPU Intel I5 8400", "GPU GTX 1660Ti MSI Gaming X", "HDD Toshiba 1Tb",
+                "Headphones ergo BT490", "Keyboard Dark Project KB104A", "Microphone Mega Microphone 3000", "Monitor Philips 2473LE FullHD", "Motherboard MSI B360M Gaming Plus",
+                "Mouse A4Tech N70-FX", "RAM Kingston Fury 8Gb 2666", "Speakers Targa EVO 550", "Webcam A4Tech NFL"
             };
 
             int[] categoryIds = new int[]
@@ -276,7 +276,7 @@ namespace PCStore.DAL.Persistence.Seeding
         {
             string[] names = new string[]
             {
-                "12 місяців", "HDMI", "DVI-D", "2m", "Китай",
+                "12 months", "HDMI", "DVI-D", "2m", "China",
 
             };
 

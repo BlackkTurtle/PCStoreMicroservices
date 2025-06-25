@@ -41,6 +41,7 @@ namespace PCStore.BLL.MediatR.CommentHandlers.UpdateCommentStatusesHandler
 
         public async Task<Result<bool>> Handle(UpdateCommentStatusesCommand request, CancellationToken cancellationToken)
         {
+            Thread.Sleep(5000);
             var ints = request.updateCommentDTOs.Select(x => x.Id).ToList();
 
             var updateCommentDTOs = request.updateCommentDTOs.OrderBy(x => x.Id).ToList();

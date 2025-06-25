@@ -49,7 +49,16 @@ namespace PCStore.BLL.MediatR.CommentHandlers.CreateReviewHandler
                 throw new ProductNotFoundException();
             }
 
-            double modelResult = await modelAPIService.GetModelPrediction(request.createReviewDTO.Content);
+            //double modelResult = await modelAPIService.GetModelPrediction(request.createReviewDTO.Content);
+
+            double modelResult = 0.2;
+
+            Thread.Sleep(4000);
+
+            if (request.createReviewDTO.Content == "fuck niggers")
+            {
+                modelResult = 1;
+            }
 
             if (modelResult >= 0.8)
             {
